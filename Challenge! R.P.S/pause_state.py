@@ -38,6 +38,9 @@ def handle_events():
 def draw():
     clear_canvas()
     image.draw(400, 300)
+    main_state.grass.draw()
+    main_state.player.draw()
+    main_state.enemy.draw()
     update_canvas()
     pass
 

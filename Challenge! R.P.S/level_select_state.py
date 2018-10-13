@@ -1,9 +1,9 @@
 import game_framework
 from pico2d import *
-import level_select_state
+import main_state
 
 
-name = "TitleState"
+name = "LevelSelectState"
 image = None
 
 
@@ -40,7 +40,7 @@ def collision(x1, y1, x2, y2, px, py):
 
 def enter():
     global image
-    image = load_image('RPS.png')
+    image = load_image('start-exit.jpg')
     pass
 
 
@@ -59,7 +59,7 @@ def handle_events():
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-                game_framework.change_state(level_select_state)
+                game_framework.change_state(main_state)
     pass
 
 
