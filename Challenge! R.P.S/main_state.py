@@ -116,10 +116,7 @@ def handle_events():
             game_framework.change_state(title_state)
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
-        #elif event.type == SDL_MOUSEBUTTONDOWN and collision(Draw_Button_Start.x, Draw_Button_Start.y, 500, 400, event.x, event.y):
-            pass
-        #elif event.type == SDL_MOUSEBUTTONDOWN and exit_button:
-            pass
+
 
 
 def update():
@@ -134,4 +131,5 @@ def draw():
     player.draw()
     enemy.draw()
     update_canvas()
+    delay(0.05)
     pass
