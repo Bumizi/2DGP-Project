@@ -7,7 +7,7 @@ from pico2d import *
 import game_framework
 import title_state
 import pause_state
-import player
+from player import Player
 
 
 name = "MainState"
@@ -87,7 +87,7 @@ def enter():
     #global player, grass, enemy
     global grass, enemy, tmp
     #player = Player()
-    tmp = player.Player()
+    tmp = Player()
     enemy = Enemy()
     grass = Grass()
     pass
@@ -120,6 +120,8 @@ def handle_events():
             game_framework.change_state(title_state)
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
+        else:
+            tmp.handle_event(event)
 
 
 
