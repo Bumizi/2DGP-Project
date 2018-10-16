@@ -7,13 +7,13 @@ from pico2d import *
 import game_framework
 import title_state
 import pause_state
-import start_state
+import player
 
 
 name = "MainState"
 
-
-player = None
+tmp = None
+#player = None
 enemy = None
 grass = None
 font = None
@@ -27,18 +27,18 @@ class Grass:
         self.image.draw(400, 30)
 
 
-class Player:
-    def __init__(self):
-        self.x, self.y = random.randint(100, 700), 90
-        self.frame = random.randint(0, 7)
-        self.image = load_image('run_animation.png')
+#class Player:
+#    def __init__(self):
+#        self.x, self.y = random.randint(100, 700), 90
+#        self.frame = random.randint(0, 7)
+#        self.image = load_image('run_animation.png')
 
-    def update(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += 5
+#    def update(self):
+#        self.frame = (self.frame + 1) % 8
+#        self.x += 5
 
-    def draw(self):
-        self.image.clip_draw(self.frame*100, 0, 100, 100, self.x, self.y)
+#    def draw(self):
+#        self.image.clip_draw(self.frame*100, 0, 100, 100, self.x, self.y)
 
 
 class Enemy:
@@ -84,16 +84,20 @@ class Ball41x41:
 
 
 def enter():
-    global player, grass, enemy
-    player = Player()
+    #global player, grass, enemy
+    global grass, enemy, tmp
+    #player = Player()
+    tmp = player.Player()
     enemy = Enemy()
     grass = Grass()
     pass
 
 
 def exit():
-    global player, grass, enemy
-    del (player)
+    #global player, grass, enemy
+    global grass, enemy, tmp
+    #del (player)
+    del (tmp)
     del (grass)
     del (enemy)
     pass
@@ -120,7 +124,8 @@ def handle_events():
 
 
 def update():
-    player.update()
+    #player.Player.update(player)
+    tmp.update()
     enemy.update()
     pass
 
@@ -128,7 +133,8 @@ def update():
 def draw():
     clear_canvas()
     grass.draw()
-    player.draw()
+    #.Player.draw(player)
+    tmp.draw()
     enemy.draw()
     update_canvas()
     delay(0.05)
