@@ -12,7 +12,7 @@ from player import Player
 
 name = "MainState"
 
-tmp = None
+character_player = None
 #player = None
 enemy = None
 grass = None
@@ -85,9 +85,9 @@ class Ball41x41:
 
 def enter():
     #global player, grass, enemy
-    global grass, enemy, tmp
+    global grass, enemy, character_player
     #player = Player()
-    tmp = Player()
+    character_player = Player()
     enemy = Enemy()
     grass = Grass()
     pass
@@ -95,9 +95,9 @@ def enter():
 
 def exit():
     #global player, grass, enemy
-    global grass, enemy, tmp
+    global grass, enemy, character_player
     #del (player)
-    del (tmp)
+    del (character_player)
     del (grass)
     del (enemy)
     pass
@@ -121,13 +121,13 @@ def handle_events():
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
         else:
-            tmp.handle_event(event)
+            character_player.handle_event(event)
 
 
 
 def update():
     #player.Player.update(player)
-    tmp.update()
+    character_player.update()
     enemy.update()
     pass
 
@@ -136,7 +136,7 @@ def draw():
     clear_canvas()
     grass.draw()
     #.Player.draw(player)
-    tmp.draw()
+    character_player.draw()
     enemy.draw()
     update_canvas()
     delay(0.05)

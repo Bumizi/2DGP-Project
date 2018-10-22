@@ -1,22 +1,21 @@
 from pico2d import *
 
 # Boy State
-IDLE, SCISSOR, ROCK, PAPER = range(4)
+IDLE, RUN = range(2)
 
 # Boy Event
-SET_SCISSOR, SET_ROCK, SET_PAPER = range(3)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP = range(4)
 
 key_event_table = {
-    (SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
-    (SDL_KEYDOWN, SDLK_2): SET_ROCK,
-    (SDL_KEYDOWN, SDLK_3): SET_PAPER,
+    (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
+    (SDL_KEYDOWN, SDLK_LEFT): LEFT_DOWN,
+    (SDL_KEYUP, SDLK_RIGHT): RIGHT_UP,
+    (SDL_KEYUP, SDLK_LEFT): LEFT_UP
 }
 
 next_state_table = {
-    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER},
-    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER},
-    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER},
-    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE}
+    IDLE: {RIGHT_UP: RUN, LEFT_UP: RUN, RIGHT_DOWN: RUN, LEFT_DOWN: RUN},
+    RUN: {RIGHT_UP: IDLE, LEFT_UP: IDLE, LEFT_DOWN: IDLE, RIGHT_DOWN: IDLE}
 }
 
 
@@ -52,66 +51,22 @@ class Player:
             self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
         pass
 
-    # ROCK state functions
-    def enter_ROCK(self):
+    # RUN state functions
+    def enter_RUN(self):
         self.frame = 0
         self.dir = self.velocity
         pass
 
-    def exit_ROCK(self):
+    def exit_RUN(self):
         pass
 
-    def do_ROCK(self):
+    def do_RUN(self):
         self.frame = (self.frame + 1) % 8
         self.x += self.velocity
         self.x = clamp(25, self.x, 800 - 25)
         pass
 
-    def draw_ROCK(self):
-        if self.velocity == 1:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-
-    # SCISSOR state functions
-    def enter_SCISSOR(self):
-        self.frame = 0
-        self.dir = self.velocity
-        pass
-
-    def exit_SCISSOR(self):
-        pass
-
-    def do_SCISSOR(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocity
-        self.x = clamp(25, self.x, 800 - 25)
-        pass
-
-    def draw_SCISSOR(self):
-        if self.velocity == 1:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-
-
-
-        # PAPER state functions
-    def enter_PAPER(self):
-        self.frame = 0
-        self.dir = self.velocity
-        pass
-
-    def exit_PAPER(self):
-        pass
-
-    def do_PAPER(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocity
-        self.x = clamp(25, self.x, 800 - 25)
-        pass
-
-    def draw_PAPER(self):
+    def draw_RUN(self):
         if self.velocity == 1:
             self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
         else:
@@ -143,10 +98,10 @@ class Player:
         self.cur_state = state
         pass
 
-    enter_state = {IDLE: enter_IDLE, ROCK: enter_ROCK, SCISSOR: enter_SCISSOR, PAPER: enter_PAPER}
-    exit_state = {IDLE: exit_IDLE, ROCK: exit_ROCK, SCISSOR: exit_SCISSOR, PAPER: exit_PAPER}
-    do_state = {IDLE: do_IDLE, ROCK: do_ROCK, SCISSOR: do_SCISSOR, PAPER: do_PAPER}
-    draw_state = {IDLE: draw_IDLE, ROCK: draw_ROCK, SCISSOR: draw_SCISSOR, PAPER: draw_PAPER}
+    enter_state = {IDLE: enter_IDLE, RUN: enter_RUN}
+    exit_state = {IDLE: exit_IDLE, RUN: exit_RUN}
+    do_state = {IDLE: do_IDLE, RUN: do_RUN}
+    draw_state = {IDLE: draw_IDLE, RUN: draw_RUN}
 
     def update(self):
         self.do_state[self.cur_state](self)
@@ -162,11 +117,13 @@ class Player:
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
-            if key_event == SET_SCISSOR:
+            if key_event == RIGHT_DOWN:
                 self.velocity += 1
-            elif key_event == SET_PAPER:
+            elif key_event == LEFT_DOWN:
                 self.velocity -= 1
-            elif key_event == SET_ROCK:
+            elif key_event == RIGHT_UP:
                 self.velocity -= 1
+            elif key_event == LEFT_UP:
+                self.velocity += 1
             self.add_event(key_event)
 
