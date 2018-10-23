@@ -21,8 +21,8 @@ class Level_Easy:
 
 class Level_Normal:
     def __init__(self):
-        self.image = load_image('level_normal.jpg')
-        self.x, self.y, self.w, self.h = 400, 350, 100, 50
+        self.image = load_image('level_normal.png')
+        self.x, self.y, self.w, self.h = 400, 320, 100, 50
 
     def draw(self):
         self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
@@ -30,8 +30,8 @@ class Level_Normal:
 
 class Level_Hard:
     def __init__(self):
-        self.image = load_image('level_hard.jpg')
-        self.x, self.y, self.w, self.h = 400, 300, 100, 50
+        self.image = load_image('level_hard.png')
+        self.x, self.y, self.w, self.h = 400, 240, 100, 50
 
     def draw(self):
         self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
@@ -48,9 +48,9 @@ def collision(x1, y1, x2, y2, px, py):
 
 def enter():
     global image_easy, image_normal, image_hard
-    image_easy = load_image('level_easy.png')
-    image_normal = load_image('level_normal.png')
-    image_hard = load_image('level_hard.png')
+    image_easy = Level_Easy()
+    image_normal = Level_Normal()
+    image_hard = Level_Hard()
     pass
 
 
@@ -83,9 +83,9 @@ def draw():
     title_state.main_image.draw()
     title_state.start_image.draw()
     title_state.exit_image.draw()
-    image_easy.draw(200, 300)
-    image_normal.draw(400, 300)
-    image_hard.draw(600, 300)
+    image_easy.draw()
+    image_normal.draw()
+    image_hard.draw()
     update_canvas()
     pass
 
