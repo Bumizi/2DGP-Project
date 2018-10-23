@@ -20,29 +20,30 @@ class MainScreen:
 class StartButton:
     def __init__(self):
         self.image = load_image('start.png')
-        self.x, self.y = 100, 50
+        self.x, self.y, self.w, self.h = 300, 50, 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 0, 900, 180, 300, 50, self.x, self.y)
+        self.image.clip_draw(0, 0, 900, 180, self.x, self.y, self.w, self.h)
 
 
 class ExitButton:
     def __init__(self):
         self.image = load_image('exit.png')
-        self.x, self.y = 100, 50
+        self.x, self.y, self.w, self.h = 500, 50, 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 0, 900, 180, 500, 50, self.x, self.y)
+        self.image.clip_draw(0, 0, 900, 180, self.x, self.y, self.w, self.h)
 
 
 def collision(x1, y1, x2, y2, px, py):
-    if(x1 < px < x2 & y1 < py < y2):
+    new_x1, new_y1 = x1-x2/2, y1+y2/2
+    new_x2 , new_y2 = x1+x2/2, y1-y2/2
+    if(new_x1 < px and px < new_x2 and new_y1 > py and py > new_y2):
         return True
 
 
 def enter():
     global main_image, start_image, exit_image
-    #image = load_image('RPS.png')
     main_image = MainScreen()
     start_image = StartButton()
     exit_image = ExitButton()
@@ -51,9 +52,9 @@ def enter():
 
 def exit():
     global main_image, start_image, exit_image
-    del (main_image)
-    del (start_image)
-    del (exit_image)
+    del main_image
+    del start_image
+    del exit_image
     pass
 
 
@@ -67,8 +68,10 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.push_state(level_select_state)
-            #elif event.type == SDL_MOUSEBUTTONDOWN and collision(Draw_Button_Start.x, Draw_Button_Start.y, 500, 400, event.x, event.y):
-                #pass
+            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, event.y):
+                game_framework.push_state(level_select_state)
+            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, event.y):
+                game_framework.quit()
     pass
 
 

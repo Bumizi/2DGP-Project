@@ -68,13 +68,16 @@ def handle_events():
             #elif event.type == SDL_MOUSEBUTTONDOWN and collision(Draw_Button_Start.x, Draw_Button_Start.y, 500, 400, event.x, event.y):
                 #pass
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+                game_framework.pop_state()
                 game_framework.change_state(main_state)
     pass
 
 
 def draw():
     clear_canvas()
-    title_state.image.draw(400, 300)
+    title_state.main_image.draw()
+    title_state.start_image.draw()
+    title_state.exit_image.draw()
     image_easy.draw(200, 300)
     image_normal.draw(400, 300)
     image_hard.draw(600, 300)
