@@ -13,8 +13,7 @@ from player import Player
 name = "MainState"
 
 character_player = None
-#player = None
-enemy = None
+character_enemy = None
 grass = None
 font = None
 
@@ -84,22 +83,18 @@ class Ball41x41:
 
 
 def enter():
-    #global player, grass, enemy
-    global grass, enemy, character_player
-    #player = Player()
+    global grass, character_enemy, character_player
     character_player = Player()
-    enemy = Enemy()
+    character_enemy = Enemy()
     grass = Grass()
     pass
 
 
 def exit():
-    #global player, grass, enemy
-    global grass, enemy, character_player
-    #del (player)
+    global grass, character_enemy, character_player
     del (character_player)
     del (grass)
-    del (enemy)
+    del (character_enemy)
     pass
 
 
@@ -126,18 +121,16 @@ def handle_events():
 
 
 def update():
-    #player.Player.update(player)
     character_player.update()
-    enemy.update()
+    character_enemy.update()
     pass
 
 
 def draw():
     clear_canvas()
     grass.draw()
-    #.Player.draw(player)
     character_player.draw()
-    enemy.draw()
+    character_enemy.draw()
     update_canvas()
     delay(0.05)
     pass

@@ -4,7 +4,9 @@ import level_select_state
 
 
 name = "TitleState"
-image = None
+main_image = None
+start_image = None
+exit_image = None
 
 
 class MainScreen:
@@ -12,25 +14,25 @@ class MainScreen:
         self.image = load_image('RPS.png')
 
     def draw(self):
-        self.image.draw(300, 300)
+        self.image.clip_draw(0, 0, 512, 512, 400, 300, 800, 600)
 
 
 class StartButton:
     def __init__(self):
-        self.image = load_image('start-exit.jpg')
-        self.x, self.y = 100, 100
+        self.image = load_image('start.png')
+        self.x, self.y = 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 225, 950, 450, self.x, self.y)
+        self.image.clip_draw(0, 0, 900, 180, 300, 50, self.x, self.y)
 
 
 class ExitButton:
     def __init__(self):
-        self.image = load_image('start-exit.jpg')
-        self.x, self.y = 500, 100
+        self.image = load_image('exit.png')
+        self.x, self.y = 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 450, 950, 225, self.x, self.y)
+        self.image.clip_draw(0, 0, 900, 180, 500, 50, self.x, self.y)
 
 
 def collision(x1, y1, x2, y2, px, py):
@@ -39,14 +41,19 @@ def collision(x1, y1, x2, y2, px, py):
 
 
 def enter():
-    global image
-    image = load_image('RPS.png')
+    global main_image, start_image, exit_image
+    #image = load_image('RPS.png')
+    main_image = MainScreen()
+    start_image = StartButton()
+    exit_image = ExitButton()
     pass
 
 
 def exit():
-    global image
-    del(image)
+    global main_image, start_image, exit_image
+    del (main_image)
+    del (start_image)
+    del (exit_image)
     pass
 
 
@@ -67,7 +74,9 @@ def handle_events():
 
 def draw():
     clear_canvas()
-    image.draw(400, 300)
+    main_image.draw()
+    start_image.draw()
+    exit_image.draw()
     update_canvas()
     pass
 
