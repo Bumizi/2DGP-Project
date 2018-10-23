@@ -36,8 +36,10 @@ class ExitButton:
 
 
 def collision(x1, y1, x2, y2, px, py):
-    new_x1, new_y1 = x1-x2/2, y1+y2/2
-    new_x2 , new_y2 = x1+x2/2, y1-y2/2
+    new_x1 = x1-x2/2
+    new_y1 = y1+y2/2
+    new_x2 = x1+x2/2
+    new_y2 = y1-y2/2
     if(new_x1 < px and px < new_x2 and new_y1 > py and py > new_y2):
         return True
 
@@ -68,10 +70,8 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.push_state(level_select_state)
-            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, event.y):
-                game_framework.push_state(level_select_state)
-            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, event.y):
-                game_framework.quit()
+            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, -(event.y-600)):
+                    game_framework.push_state(level_select_state)
     pass
 
 
