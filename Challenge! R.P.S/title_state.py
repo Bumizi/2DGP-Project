@@ -40,7 +40,7 @@ def collision(x1, y1, x2, y2, px, py):
     new_y1 = y1+y2/2
     new_x2 = x1+x2/2
     new_y2 = y1-y2/2
-    if(new_x1 < px and px < new_x2 and new_y1 > py and py > new_y2):
+    if(new_x1 < px < new_x2 and new_y1 > py > new_y2):
         return True
 
 

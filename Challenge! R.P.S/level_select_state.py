@@ -13,31 +13,36 @@ game_level = None
 class Level_Easy:
     def __init__(self):
         self.image = load_image('level_easy.png')
+        self.x, self.y, self.w, self.h = 400, 400, 100, 50
 
     def draw(self):
-        self.image.draw(300, 300)
+        self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
 
 
 class Level_Normal:
     def __init__(self):
         self.image = load_image('level_normal.jpg')
-        self.x, self.y = 100, 100
+        self.x, self.y, self.w, self.h = 400, 350, 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 225, 950, 450, self.x, self.y)
+        self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
 
 
 class Level_Hard:
     def __init__(self):
         self.image = load_image('level_hard.jpg')
-        self.x, self.y = 500, 100
+        self.x, self.y, self.w, self.h = 400, 300, 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 450, 950, 225, self.x, self.y)
+        self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
 
 
 def collision(x1, y1, x2, y2, px, py):
-    if(x1 < px < x2 & y1 < py < y2):
+    new_x1 = x1-x2/2
+    new_y1 = y1+y2/2
+    new_x2 = x1+x2/2
+    new_y2 = y1-y2/2
+    if (new_x1 < px < new_x2 and new_y1 > py > new_y2):
         return True
 
 
