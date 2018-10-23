@@ -70,8 +70,11 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.push_state(level_select_state)
-            elif event.type == SDL_MOUSEBUTTONDOWN and collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, -(event.y-600)):
+            elif event.type == SDL_MOUSEBUTTONDOWN:
+                if collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, -(event.y-600)):
                     game_framework.push_state(level_select_state)
+                elif collision(exit_image.x, exit_image.y, exit_image.w, exit_image.h, event.x, -(event.y - 600)):
+                    game_framework.quit()
     pass
 
 
