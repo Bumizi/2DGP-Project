@@ -24,9 +24,10 @@ class Player:
     image = None
     def __init__(self):
         self.event_que = []
-        self.x, self.y = 800 // 2, 90
+        self.x, self.y = 700, 250
+        self.w, self.h = 100, 100
         if Player.image == None:
-            Player.image = load_image('animation_sheet.png')
+            Player.image = load_image('player_idle.png')
         self.cur_state = IDLE
         self.dir = 1
         self.velocity = 0
@@ -34,88 +35,97 @@ class Player:
 
     # IDLE state functions
     def enter_IDLE(self):
-        self.timer = 1000
+        #self.timer = 1000
         self.frame = 0
 
     def exit_IDLE(self):
         pass
 
     def do_IDLE(self):
-        self.frame = (self.frame + 1) % 8
-        self.timer -= 1
+        self.frame = (self.frame + 1) % 4
+        #self.timer -= 1
         pass
 
     def draw_IDLE(self):
-        if self.dir == 1:
-            self.image.clip_draw(self.frame * 100, 300, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
+        #if self.dir == 1:
+            #self.image.clip_draw(self.frame * 100, 300, 100, 100, self.x, self.y)
+        #else:
+            #self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
+        self.image.clip_composite_draw(self.frame * int(202/4), 0, int(202/4), 93, 0, 'h', self.x, self. y, self.w, self.h)
+        delay(0.05)
         pass
 
     # ROCK state functions
     def enter_ROCK(self):
         self.frame = 0
-        self.dir = self.velocity
+        #self.dir = self.velocity
         pass
 
     def exit_ROCK(self):
         pass
 
     def do_ROCK(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocity
-        self.x = clamp(25, self.x, 800 - 25)
+        Player.image = load_image('player_attack1.png')
+        self.frame = (self.frame + 1) % 3
+        #self.x += self.velocity
+        #self.x = clamp(25, self.x, 800 - 25)
         pass
 
     def draw_ROCK(self):
-        if self.velocity == 1:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+        #if self.velocity == 1:
+            #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
+       #else:
+            #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
+        delay(0.1)
 
     # SCISSOR state functions
     def enter_SCISSOR(self):
         self.frame = 0
-        self.dir = self.velocity
+        #self.dir = self.velocity
         pass
 
     def exit_SCISSOR(self):
         pass
 
     def do_SCISSOR(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocity
-        self.x = clamp(25, self.x, 800 - 25)
+        Player.image = load_image('player_attack1.png')
+        self.frame = (self.frame + 1) % 3
+        #self.x += self.velocity
+        #self.x = clamp(25, self.x, 800 - 25)
         pass
 
     def draw_SCISSOR(self):
-        if self.velocity == 1:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-
-
+        #if self.velocity == 1:
+            #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
+        #else:
+            #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
+        delay(0.1)
 
         # PAPER state functions
     def enter_PAPER(self):
         self.frame = 0
-        self.dir = self.velocity
+        #self.dir = self.velocity
         pass
 
     def exit_PAPER(self):
         pass
 
     def do_PAPER(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocity
-        self.x = clamp(25, self.x, 800 - 25)
+        Player.image = load_image('player_attack1.png')
+        self.frame = (self.frame + 1) % 3
+        #self.x += self.velocity
+        #self.x = clamp(25, self.x, 800 - 25)
         pass
 
     def draw_PAPER(self):
-        if self.velocity == 1:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        else:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+        #if self.velocity == 1:
+            #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
+        #else:
+            #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
+        delay(0.1)
 
     # SLEEP state functions
     def enter_SLEEP(self):
