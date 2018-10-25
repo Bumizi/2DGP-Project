@@ -23,17 +23,20 @@ next_state_table = {
 class Player:
     image = None
     hand = None
+    heart = None
     def __init__(self):
         self.event_que = []
-        self.image_x, self.image_y = 730, 200
-        self.image_w, self.image_h = 100, 100
-        self.hand_x, self.hand_y = self.image_x-100, self.image_y
-        self.hand_w, self.hand_h = 80, 80
+        self.image_x, self.image_y, self.image_w, self.image_h = 730, 200, 100, 100
+        self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
+        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 730, 150, 20, 20
         if Player.image == None:
             Player.image = load_image('player_idle.png')
+        if Player.heart == None:
+            Player.heart = load_image('heart.png')
         self.cur_state = IDLE
-        self.dir = 1
-        self.velocity = 0
+        self.heart_count = 5
+        #self.dir = 1
+        #self.velocity = 0
         self.enter_state[IDLE](self)
 
     # IDLE state functions
@@ -57,6 +60,8 @@ class Player:
             #self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
         self.image.clip_composite_draw(self.frame * int(202/4), 0, int(202/4), 93, 0, 'h',
                                        self.image_x, self. image_y, self.image_w, self.image_h)
+        for i in range(self.heart_count):
+            self.heart.clip_draw(0, 0, 620, 620, self.heart_x - i*self.heart_w, self.heart_y, self.heart_w, self.heart_h)
         delay(0.05)
         pass
 
@@ -85,6 +90,8 @@ class Player:
         self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                        self.image_x, self.image_y, self.image_w, self.image_h)
         self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        for i in range(self.heart_count):
+            self.heart.clip_draw(0, 0, 620, 620, self.heart_x - i*self.heart_w, self.heart_y, self.heart_w, self.heart_h)
         delay(0.05)
 
     # SCISSOR state functions
@@ -112,6 +119,8 @@ class Player:
         self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                        self.image_x, self.image_y, self.image_w, self.image_h)
         self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        for i in range(self.heart_count):
+            self.heart.clip_draw(0, 0, 620, 620, self.heart_x - i*self.heart_w, self.heart_y, self.heart_w, self.heart_h)
         delay(0.05)
 
         # PAPER state functions
@@ -140,6 +149,8 @@ class Player:
         self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                        self.image_x, self.image_y, self.image_w, self.image_h)
         self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        for i in range(self.heart_count):
+            self.heart.clip_draw(0, 0, 620, 620, self.heart_x - i*self.heart_w, self.heart_y, self.heart_w, self.heart_h)
         delay(0.05)
 
     # SLEEP state functions
