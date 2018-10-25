@@ -3,7 +3,7 @@ import json
 import os
 
 from pico2d import *
-
+import game_world
 import game_framework
 import title_state
 import pause_state
@@ -21,6 +21,9 @@ font = None
 class Grass:
     def __init__(self):
         self.image = load_image('grass.png')
+
+    def update(self):
+        pass
 
     def draw(self):
         self.image.draw(400, 30)
@@ -87,14 +90,18 @@ def enter():
     character_player = Player()
     character_enemy = Enemy()
     grass = Grass()
+    game_world.add_object(grass, 0)
+    game_world.add_object(character_player, 1)
+    game_world.add_object(character_enemy, 1)
     pass
 
 
 def exit():
     global grass, character_enemy, character_player
-    del (character_player)
-    del (grass)
-    del (character_enemy)
+    del character_player
+    del grass
+    del character_enemy
+    game_world.clear()
     pass
 
 
@@ -107,7 +114,6 @@ def resume():
 
 
 def handle_events():
-    global character_player
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -122,16 +128,19 @@ def handle_events():
 
 
 def update():
-    character_player.update()
-    character_enemy.update()
+    #character_player.update()
+    #character_enemy.update()
+    for game_object in game_world.all_objects():
+        game_object.update()
     pass
 
 
 def draw():
     clear_canvas()
-    grass.draw()
-    character_player.draw()
-    character_enemy.draw()
+    #grass.draw()
+    #character_player.draw()
+    #character_enemy.draw()
+    for game_object in game_world.all_objects():
+        game_object.draw()
     update_canvas()
-    delay(0.05)
     pass
