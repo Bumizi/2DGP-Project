@@ -34,7 +34,7 @@ def update():
 def draw():
     global image
     clear_canvas()
-    image.clip_draw(0, 0, 83, 100, 400, 300, 800, 600)
+    image.clip_draw(0, 0, 83, 100, 800//2, 500//2, 83*2, 100*2)
     update_canvas()
     pass
 

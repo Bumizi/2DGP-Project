@@ -14,7 +14,7 @@ class MainScreen:
         self.image = load_image('RPS.png')
 
     def draw(self):
-        self.image.clip_draw(0, 0, 512, 512, 400, 300, 800, 600)
+        self.image.clip_draw(0, 0, 512, 512, 800//2, 500//2, 800, 500)
 
 
 class StartButton:
@@ -71,9 +71,9 @@ def handle_events():
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.push_state(level_select_state)
             elif event.type == SDL_MOUSEBUTTONDOWN:
-                if collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, -(event.y-600)):
+                if collision(start_image.x, start_image.y, start_image.w, start_image.h, event.x, -(event.y-500)):
                     game_framework.push_state(level_select_state)
-                elif collision(exit_image.x, exit_image.y, exit_image.w, exit_image.h, event.x, -(event.y - 600)):
+                elif collision(exit_image.x, exit_image.y, exit_image.w, exit_image.h, event.x, -(event.y - 500)):
                     game_framework.quit()
     pass
 

@@ -22,10 +22,13 @@ next_state_table = {
 
 class Player:
     image = None
+    hand = None
     def __init__(self):
         self.event_que = []
-        self.x, self.y = 700, 250
-        self.w, self.h = 100, 100
+        self.image_x, self.image_y = 730, 200
+        self.image_w, self.image_h = 100, 100
+        self.hand_x, self.hand_y = self.image_x-100, self.image_y
+        self.hand_w, self.hand_h = 80, 80
         if Player.image == None:
             Player.image = load_image('player_idle.png')
         self.cur_state = IDLE
@@ -52,13 +55,15 @@ class Player:
             #self.image.clip_draw(self.frame * 100, 300, 100, 100, self.x, self.y)
         #else:
             #self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
-        self.image.clip_composite_draw(self.frame * int(202/4), 0, int(202/4), 93, 0, 'h', self.x, self. y, self.w, self.h)
+        self.image.clip_composite_draw(self.frame * int(202/4), 0, int(202/4), 93, 0, 'h',
+                                       self.image_x, self. image_y, self.image_w, self.image_h)
         delay(0.05)
         pass
 
     # ROCK state functions
     def enter_ROCK(self):
         self.frame = 0
+        self.hand = self.hand = load_image('my_rock.png')
         #self.dir = self.velocity
         pass
 
@@ -77,12 +82,15 @@ class Player:
             #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
        #else:
             #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
-        delay(0.1)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
+                                       self.image_x, self.image_y, self.image_w, self.image_h)
+        self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        delay(0.05)
 
     # SCISSOR state functions
     def enter_SCISSOR(self):
         self.frame = 0
+        self.hand = load_image('my_scissor.png')
         #self.dir = self.velocity
         pass
 
@@ -101,12 +109,16 @@ class Player:
             #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
         #else:
             #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
-        delay(0.1)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
+                                       self.image_x, self.image_y, self.image_w, self.image_h)
+        self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        delay(0.05)
 
         # PAPER state functions
+
     def enter_PAPER(self):
         self.frame = 0
+        self.hand = load_image('my_paper.png')
         #self.dir = self.velocity
         pass
 
@@ -125,8 +137,10 @@ class Player:
             #self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
         #else:
             #self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', self.x, self.y, self.w, self.h)
-        delay(0.1)
+        self.image.clip_composite_draw(self.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
+                                       self.image_x, self.image_y, self.image_w, self.image_h)
+        self.hand.clip_draw(0, 0, 120, 120, self.hand_x, self.hand_y, self.hand_w, self.hand_h)
+        delay(0.05)
 
     # SLEEP state functions
     def enter_SLEEP(self):

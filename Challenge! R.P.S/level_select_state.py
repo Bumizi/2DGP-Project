@@ -71,11 +71,11 @@ def handle_events():
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.pop_state()
             elif event.type == SDL_MOUSEBUTTONDOWN:
-                if collision(image_easy.x, image_easy.y, image_easy.w, image_easy.h, event.x, -(event.y - 600)):
+                if collision(image_easy.x, image_easy.y, image_easy.w, image_easy.h, event.x, -(event.y - 500)):
                     game_framework.change_state(main_state)
-                elif collision(image_normal.x, image_normal.y, image_normal.w, image_normal.h, event.x, -(event.y - 600)):
+                elif collision(image_normal.x, image_normal.y, image_normal.w, image_normal.h, event.x, -(event.y - 500)):
                     game_framework.change_state(main_state)
-                elif collision(image_hard.x, image_hard.y, image_hard.w, image_hard.h, event.x, -(event.y - 600)):
+                elif collision(image_hard.x, image_hard.y, image_hard.w, image_hard.h, event.x, -(event.y - 500)):
                     game_framework.change_state(main_state)
             #elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 #game_framework.pop_state()
