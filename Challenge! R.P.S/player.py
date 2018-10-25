@@ -42,6 +42,7 @@ class Player:
         pass
 
     def do_IDLE(self):
+        Player.image = load_image('player_idle.png')
         self.frame = (self.frame + 1) % 4
         #self.timer -= 1
         pass
@@ -173,10 +174,10 @@ class Player:
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             if key_event == SET_SCISSOR:
-                self.velocity += 1
+                pass
             elif key_event == SET_PAPER:
-                self.velocity -= 1
+                pass
             elif key_event == SET_ROCK:
-                self.velocity -= 1
+                pass
             self.add_event(key_event)
 
