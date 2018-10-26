@@ -174,10 +174,9 @@ class Player:
     hand = None
     heart = None
     def __init__(self):
-        self.event_que = []
         self.image_x, self.image_y, self.image_w, self.image_h = 730, 200, 100, 100
         self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
-        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 730, 150, 20, 20
+        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 20, 20
         self.image = load_image('player_idle.png')
         self.heart = load_image('heart.png')
         self.event_que = []

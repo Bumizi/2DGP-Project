@@ -8,12 +8,14 @@ import game_framework
 import title_state
 import pause_state
 from player import Player
+from select_block import Select_Block
 
 
 name = "MainState"
 
 character_player = None
 character_enemy = None
+select = None
 grass = None
 font = None
 
@@ -86,21 +88,24 @@ class Ball41x41:
 
 
 def enter():
-    global grass, character_enemy, character_player
+    global grass, character_enemy, character_player, select
     character_player = Player()
     character_enemy = Enemy()
+    select = Select_Block()
     grass = Grass()
     game_world.add_object(grass, 0)
+    game_world.add_object(select, 1)
     game_world.add_object(character_player, 1)
     game_world.add_object(character_enemy, 1)
     pass
 
 
 def exit():
-    global grass, character_enemy, character_player
+    global grass, character_enemy, character_player, select
     del character_player
     del grass
     del character_enemy
+    del select
     game_world.clear()
     pass
 
@@ -124,6 +129,7 @@ def handle_events():
             game_framework.push_state(pause_state)
         else:
             character_player.handle_event(event)
+            select.handle_event(event)
 
 
 
