@@ -18,12 +18,14 @@ FRAMES_PER_ACTION = 3
 
 
 # Boy Event
-IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER = range(4)
+IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SET_DEAD = range(6)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
     (SDL_KEYDOWN, SDLK_2): SET_ROCK,
     (SDL_KEYDOWN, SDLK_3): SET_PAPER,
+    (SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
+    (SDL_KEYDOWN, SDLK_5): SET_DEAD
 }
 
 
@@ -178,11 +180,90 @@ class PAPER:
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
+# DAMAGED state functions
+class DAMAGED:
+    @staticmethod
+    def enter(player, event):
+        player.frame = 0
+        #player.hand = load_image('my_paper.png')
+        player.image = load_image('player_attack1.png')
+
+    @staticmethod
+    def exit(player, event):
+        pass
+
+    @staticmethod
+    def do(player):
+        global enter_timer
+        until_timer = get_time()
+        # print("Time: %f" % player.timer)
+        if player.frame < 1.8:
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        else:
+            if player.image != 'player_idle.png':
+                player.image = load_image('player_idle.png')
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        # boy.x += boy.velocity * 5
+
+    @staticmethod
+    def draw(player):
+        if player.image == 'player_attack1.png':
+            player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
+                                             player.image_x, player.image_y, player.image_w, player.image_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        else:
+            player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
+                                             player.image_x, player.image_y, player.image_w, player.image_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        for i in range(player.heart_count):
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
+
+
+# DEAD state functions
+class DEAD:
+    @staticmethod
+    def enter(player, event):
+        player.frame = 0
+        #player.hand = load_image('my_paper.png')
+        player.image = load_image('player_attack1.png')
+
+    @staticmethod
+    def exit(player, event):
+        pass
+
+    @staticmethod
+    def do(player):
+        global enter_timer
+        until_timer = get_time()
+        # print("Time: %f" % player.timer)
+        if player.frame < 1.8:
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        else:
+            if player.image != 'player_idle.png':
+                player.image = load_image('player_idle.png')
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        # boy.x += boy.velocity * 5
+
+    @staticmethod
+    def draw(player):
+        if player.image == 'player_attack1.png':
+            player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
+                                             player.image_x, player.image_y, player.image_w, player.image_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        else:
+            player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
+                                             player.image_x, player.image_y, player.image_w, player.image_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        for i in range(player.heart_count):
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
+
+
 next_state_table = {
-    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER},
-    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER},
-    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER},
-    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE}
+    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
+    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
+    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
+    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
+    DAMAGED: {IDLE: IDLE}
 }
 
 class Player:
