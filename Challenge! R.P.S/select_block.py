@@ -1,6 +1,6 @@
 from pico2d import *
 import game_world
-from block import Block
+from my_block import MY_Block
 
 
 # Event
