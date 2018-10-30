@@ -79,7 +79,7 @@ class ROCK:
         #print("Time: %f" % player.timer)
         #if until_timer - enter_timer < 1:
             #player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        if player.frame < 1.8:
+        if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         else:
             if player.image != 'player_idle.png':
@@ -121,7 +121,7 @@ class SCISSOR:
         global enter_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        if player.frame < 1.8:
+        if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         else:
             if player.image != 'player_idle.png':
@@ -159,7 +159,7 @@ class PAPER:
         global enter_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        if player.frame < 1.8:
+        if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         else:
             if player.image != 'player_idle.png':
@@ -200,7 +200,7 @@ class DAMAGED:
         global damaged_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        if player.frame < 1.8:
+        if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             player.add_event(IDLE)
@@ -212,7 +212,6 @@ class DAMAGED:
         #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
-
 
 # DEAD state functions
 class DEAD:
@@ -231,12 +230,10 @@ class DEAD:
         global enter_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        if player.frame < 1.8:
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        else:
-            if player.image != 'player_idle.png':
-                player.image = load_image('player_idle.png')
+        if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            player.add_event(IDLE)
         # boy.x += boy.velocity * 5
 
     @staticmethod
@@ -258,7 +255,7 @@ next_state_table = {
     SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
     ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
     PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
-    DAMAGED: {IDLE: IDLE}
+    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD}
 }
 
 class Player:

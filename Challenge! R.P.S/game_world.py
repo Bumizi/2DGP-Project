@@ -16,9 +16,11 @@ def remove_object(o):
 
 
 def clear():
+    global objects
     for o in all_objects():
         del o
     objects.clear()
+    objects = [[],[]]
 
 
 def all_objects():

@@ -105,11 +105,12 @@ def enter():
 
 
 def exit():
-    global grass, character_enemy, character_player, select
+    global grass, character_enemy, character_player, select, player_block
     del character_player
     del grass
     del character_enemy
     del select
+    del player_block
     game_world.clear()
     pass
 
@@ -139,8 +140,6 @@ def handle_events():
 
 
 def update():
-    #character_player.update()
-    #character_enemy.update()
     for game_object in game_world.all_objects():
         game_object.update()
     pass
@@ -148,9 +147,6 @@ def update():
 
 def draw():
     clear_canvas()
-    #grass.draw()
-    #character_player.draw()
-    #character_enemy.draw()
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()

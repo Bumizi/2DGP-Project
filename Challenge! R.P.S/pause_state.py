@@ -16,7 +16,7 @@ def enter():
 
 def exit():
     global image
-    del(image)
+    del image
     pass
 
 
@@ -27,7 +27,7 @@ def handle_events():
             game_framework.quit()
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
+                game_framework.pop_state()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 game_framework.pop_state()
                 pass
@@ -39,8 +39,8 @@ def draw():
     clear_canvas()
     image.draw(400, 300)
     main_state.grass.draw()
-    main_state.player.draw()
-    main_state.enemy.draw()
+    main_state.character_player.draw()
+    main_state.character_enemy.draw()
     update_canvas()
     pass
 

@@ -56,9 +56,9 @@ def enter():
 
 def exit():
     global image_easy, image_normal, image_hard
-    del (image_easy)
-    del (image_normal)
-    del (image_hard)
+    del image_easy
+    del image_normal
+    del image_hard
     pass
 
 
@@ -72,10 +72,13 @@ def handle_events():
                 game_framework.pop_state()
             elif event.type == SDL_MOUSEBUTTONDOWN:
                 if collision(image_easy.x, image_easy.y, image_easy.w, image_easy.h, event.x, -(event.y - 500)):
+                    game_framework.pop_state()
                     game_framework.change_state(main_state)
                 elif collision(image_normal.x, image_normal.y, image_normal.w, image_normal.h, event.x, -(event.y - 500)):
+                    game_framework.pop_state()
                     game_framework.change_state(main_state)
                 elif collision(image_hard.x, image_hard.y, image_hard.w, image_hard.h, event.x, -(event.y - 500)):
+                    game_framework.pop_state()
                     game_framework.change_state(main_state)
             #elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 #game_framework.pop_state()
