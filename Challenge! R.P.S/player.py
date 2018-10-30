@@ -51,7 +51,7 @@ class IDLE:
         player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                          player.image_x, player.image_y, player.image_w, player.image_h)
         for i in range(player.heart_count):
-            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w,
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1,
                                  player.heart_h)
 
 # ROCK state functions
@@ -62,7 +62,7 @@ class ROCK:
         player.frame = 0
         enter_timer = get_time()
         player.image = load_image('player_attack1.png')
-        player.hand = player.hand = load_image('my_rock.png')
+        #player.hand = load_image('my_rock.png')
 
     @staticmethod
     def exit(player, event):
@@ -90,13 +90,13 @@ class ROCK:
     def draw(player):
         if player.image == 'player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
-            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
 # SCISSOR state functions
 class SCISSOR:
@@ -105,7 +105,7 @@ class SCISSOR:
         global enter_timer
         player.frame = 0
         enter_timer = get_time()
-        player.hand = load_image('my_scissor.png')
+        #player.hand = load_image('my_scissor.png')
         player.image = load_image('player_attack1.png')
 
     @staticmethod
@@ -132,20 +132,20 @@ class SCISSOR:
         if player.image == 'player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
-            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
 # PAPER state functions
 class PAPER:
     @staticmethod
     def enter(player, event):
         player.frame = 0
-        player.hand = load_image('my_paper.png')
+        #player.hand = load_image('my_paper.png')
         player.image = load_image('player_attack1.png')
 
     @staticmethod
@@ -170,13 +170,13 @@ class PAPER:
         if player.image == 'player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
-            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
+            player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
 next_state_table = {
     IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER},
@@ -187,12 +187,12 @@ next_state_table = {
 
 class Player:
     image = None
-    hand = None
+    #hand = None
     heart = None
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 730, 200, 100, 100
-        self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
-        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 19, 20
+        #self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
+        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 20, 20
         self.image = load_image('player_idle.png')
         self.heart = load_image('heart.png')
         self.event_que = []

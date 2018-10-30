@@ -17,19 +17,19 @@ key_event_table = {
 # IDLE state functions
 class IDLE:
     @staticmethod
-    def enter(player, event):
+    def enter(block, event):
         pass
 
     @staticmethod
-    def exit(player, event):
+    def exit(block, event):
         pass
 
     @staticmethod
-    def do(player):
+    def do(block):
         pass
 
     @staticmethod
-    def draw(player):
+    def draw(block):
         pass
         #player.scissor.clip_draw(0, 0, 130, 150, player.scissor_x, player.scissor_y, player.scissor_w, player.scissor_h)
         #player.rock.clip_draw(0, 0, 130, 150, player.rock_x, player.rock_y, player.rock_w, player.rock_h)
@@ -39,59 +39,59 @@ class IDLE:
 # ROCK state functions
 class ROCK:
     @staticmethod
-    def enter(player, event):
+    def enter(block, event):
         MY_Block.rock = load_image('my_rock.png')
         pass
 
     @staticmethod
-    def exit(player, event):
+    def exit(block, event):
         pass
 
     @staticmethod
-    def do(player):
+    def do(block):
         pass
 
     @staticmethod
-    def draw(player):
-        player.rock.clip_draw(0, 0, 130, 150, player.x, player.y, player.w, player.h)
+    def draw(block):
+        block.rock.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
 
 # SCISSOR state functions
 class SCISSOR:
     @staticmethod
-    def enter(player, event):
+    def enter(block, event):
         MY_Block.scissor = load_image('my_scissor.png')
         pass
 
     @staticmethod
-    def exit(player, event):
+    def exit(block, event):
         pass
 
     @staticmethod
-    def do(player):
+    def do(block):
         pass
 
     @staticmethod
-    def draw(player):
-        player.scissor.clip_draw(0, 0, 130, 150, player.x, player.y, player.w, player.h)
+    def draw(block):
+        block.scissor.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
 
 # PAPER state functions
 class PAPER:
     @staticmethod
-    def enter(player, event):
+    def enter(block, event):
         MY_Block.paper = load_image('my_paper.png')
         pass
 
     @staticmethod
-    def exit(player, event):
+    def exit(block, event):
         pass
 
     @staticmethod
-    def do(player):
+    def do(block):
         pass
 
     @staticmethod
-    def draw(player):
-        player.paper.clip_draw(0, 0, 160, 150, player.x, player.y, player.w, player.h)
+    def draw(block):
+        block.paper.clip_draw(0, 0, 160, 150, block.x, block.y, block.w, block.h)
 
 
 next_state_table = {
@@ -109,7 +109,7 @@ class MY_Block:
     paper = None
 
     def __init__(self):
-        self.x, self.y, self.w, self.h = 100, 50, 120, 120
+        self.x, self.y, self.w, self.h = 640, 220, 80, 80
         self.rock, scissor, paper = load_image('my_rock.png'), load_image('my_scissor.png'), load_image('my_paper.png')
         self.event_que = []
         self.cur_state = IDLE
