@@ -182,9 +182,13 @@ class PAPER:
 
 # DAMAGED state functions
 class DAMAGED:
+    damaged_timer = 0
     @staticmethod
     def enter(player, event):
+        global damaged_timer
+        damaged_timer = 0
         player.frame = 0
+        player.heart_count -= 1
         player.image = load_image('player_damaged.png')
 
     @staticmethod
@@ -193,10 +197,13 @@ class DAMAGED:
 
     @staticmethod
     def do(player):
-        global enter_timer
+        global damaged_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        if player.frame < 1.8:
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            player.add_event(IDLE)
         # boy.x += boy.velocity * 5
 
     @staticmethod
