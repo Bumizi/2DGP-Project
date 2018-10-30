@@ -185,8 +185,7 @@ class DAMAGED:
     @staticmethod
     def enter(player, event):
         player.frame = 0
-        #player.hand = load_image('my_paper.png')
-        player.image = load_image('player_attack1.png')
+        player.image = load_image('player_damaged.png')
 
     @staticmethod
     def exit(player, event):
@@ -197,24 +196,13 @@ class DAMAGED:
         global enter_timer
         until_timer = get_time()
         # print("Time: %f" % player.timer)
-        if player.frame < 1.8:
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        else:
-            if player.image != 'player_idle.png':
-                player.image = load_image('player_idle.png')
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         # boy.x += boy.velocity * 5
 
     @staticmethod
     def draw(player):
-        if player.image == 'player_attack1.png':
-            player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
-                                             player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
-        else:
-            player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
-                                             player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        player.image.clip_composite_draw(int(player.frame) * int(208 / 4), 0, int(208 / 4), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+        #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
