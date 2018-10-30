@@ -1,9 +1,21 @@
 from pico2d import *
-import game_world
+import game_framework
 from block import Block
 
 # Boy State
 #IDLE, SCISSOR, ROCK, PAPER = range(4)
+
+PIXEL_PER_METER = (10.0/0.3)
+RUN_SPEED_KMPH = 20.0 #km/hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM/60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
+
+#Action Speed
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0/TIME_PER_ACTION
+FRAMES_PER_ACTION = 3
+
 
 # Boy Event
 IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER = range(4)
@@ -37,7 +49,8 @@ class IDLE:
     @staticmethod
     def do(player):
         player.image = load_image('player_idle.png')
-        player.frame = (player.frame + 1) % 4
+        #player.frame = (player.frame + 1) % 4
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         #boy.timer -= 1
         #if player.timer == 0:
             #player.add_event(SLEEP_TIMER)
@@ -45,12 +58,12 @@ class IDLE:
 
     @staticmethod
     def draw(player):
-        player.image.clip_composite_draw(player.frame * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
+        player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                          player.image_x, player.image_y, player.image_w, player.image_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w,
                                  player.heart_h)
-        delay(0.05)
+        #delay(0.05)
         #if boy.dir == 1:
             #boy.image.clip_draw(boy.frame * 100, 300, 100, 100, boy.x, boy.y)
         #else:
@@ -60,6 +73,7 @@ class IDLE:
 class ROCK:
     @staticmethod
     def enter(player, event):
+        global enter_timer
         if event == SET_PAPER:
             pass
         elif event == SET_ROCK:
@@ -67,6 +81,8 @@ class ROCK:
         elif event == SET_SCISSOR:
             pass
         player.frame = 0
+        enter_timer = get_time()
+        player.image = load_image('player_attack1.png')
         player.hand = player.hand = load_image('my_rock.png')
 
     @staticmethod
@@ -77,19 +93,33 @@ class ROCK:
 
     @staticmethod
     def do(player):
-        player.image = load_image('player_attack1.png')
-        player.frame = (player.frame + 1) % 3
+        global enter_timer
+        until_timer = get_time()
+        #print("Time: %f" % player.timer)
+        #if until_timer - enter_timer < 1:
+            #player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        if player.frame < 1.8:
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        else:
+            if player.image != 'player_idle.png':
+                player.image = load_image('player_idle.png')
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+
         #player.timer -= 1
         #player.x += player.velocity
         #player.x = clamp(25, player.x, 1600 - 25)
 
     @staticmethod
     def draw(player):
-        player.image.clip_composite_draw(player.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
-        player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        if player.image == 'player_attack1.png':
+            player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+            player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
+        else:
+            player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
+                                             player.image_x, player.image_y, player.image_w, player.image_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
-        delay(0.05)
+        #delay(0.05)
 
 # SCISSOR state functions
 class SCISSOR:
@@ -103,6 +133,7 @@ class SCISSOR:
             pass
         player.frame = 0
         player.hand = load_image('my_scissor.png')
+        player.image = load_image('player_attack1.png')
         #boy.timer = 50
 
     @staticmethod
@@ -113,8 +144,7 @@ class SCISSOR:
 
     @staticmethod
     def do(player):
-        player.image = load_image('player_attack1.png')
-        player.frame = (player.frame + 1) % 3
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         #boy.timer -= 1
         #boy.x += boy.velocity * 5
         #boy.x = clamp(25, boy.x, 1600 - 25)
@@ -122,11 +152,11 @@ class SCISSOR:
 
     @staticmethod
     def draw(player):
-        player.image.clip_composite_draw(player.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+        player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
         player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
-        delay(0.05)
+        #delay(0.05)
         #if boy.velocity == 1:
             #boy.image.clip_draw(boy.frame * 100, 100, 100, 100, boy.x, boy.y)
         #else:
@@ -138,6 +168,7 @@ class PAPER:
     def enter(player, event):
         player.frame = 0
         player.hand = load_image('my_paper.png')
+        player.image = load_image('player_attack1.png')
 
     @staticmethod
     def exit(player, event):
@@ -145,16 +176,15 @@ class PAPER:
 
     @staticmethod
     def do(player):
-        player.image = load_image('player_attack1.png')
-        player.frame = (player.frame + 1) % 3
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
 
     @staticmethod
     def draw(player):
-        player.image.clip_composite_draw(player.frame * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+        player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
         player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w, player.heart_h)
-        delay(0.05)
+        #delay(0.05)
         #if boy.dir == 1:
             #boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
         #else:
