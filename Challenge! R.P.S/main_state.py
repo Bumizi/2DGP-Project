@@ -130,9 +130,10 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(title_state)
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
+            #game_framework.change_state(title_state)
+        #elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
+            #game_framework.push_state(pause_state)
         else:
             character_player.handle_event(event)
             select.handle_event(event)
