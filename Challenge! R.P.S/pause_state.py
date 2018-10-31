@@ -86,6 +86,10 @@ def exit():
     del image_restart
     del image_quit
     del image_continue
+    #game_world.remove_object(image_pause)
+    #game_world.remove_object(image_restart)
+    #game_world.remove_object(image_quit)
+    #game_world.remove_object(image_continue)
     game_world.clear()
     pass
 
@@ -99,8 +103,7 @@ def handle_events():
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.pop_state()
             elif event.type == SDL_MOUSEBUTTONDOWN:
-                if collision(image_restart.x, image_restart.y, image_restart.w, image_restart.h, event.x,
-                             -(event.y - 500)):
+                if collision(image_restart.x, image_restart.y, image_restart.w, image_restart.h, event.x, -(event.y - 500)):
                     game_framework.pop_state()
                     game_framework.change_state(main_state)
                 elif collision(image_quit.x, image_quit.y, image_quit.w, image_quit.h, event.x, -(event.y - 500)):
