@@ -7,6 +7,7 @@ import game_world
 import game_framework
 import title_state
 import pause_state
+import dead_state
 from player import Player
 from select_block import Select_Block
 from my_block import MY_Block

@@ -1,4 +1,5 @@
 import game_framework
+import game_world
 from pico2d import *
 import level_select_state
 
@@ -49,6 +50,9 @@ def enter():
     main_image = MainScreen()
     start_image = StartButton()
     exit_image = ExitButton()
+    game_world.add_object(main_image, 0)
+    game_world.add_object(start_image, 1)
+    game_world.add_object(exit_image, 1)
     pass
 
 
@@ -57,6 +61,7 @@ def exit():
     del main_image
     del start_image
     del exit_image
+    game_world.clear()
     pass
 
 
@@ -80,16 +85,10 @@ def handle_events():
 
 def draw():
     clear_canvas()
-    main_image.draw()
-    start_image.draw()
-    exit_image.draw()
+    for game_object in game_world.all_objects():
+        game_object.draw()
     update_canvas()
     pass
-
-
-
-
-
 
 
 def update():

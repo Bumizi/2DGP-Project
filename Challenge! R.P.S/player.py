@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+import dead_state
 from block import Block
 
 # Boy State
@@ -233,7 +234,7 @@ class DEAD:
         if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
-            player.add_event(IDLE)
+            game_framework.push_state(dead_state)
         # boy.x += boy.velocity * 5
 
     @staticmethod
@@ -255,7 +256,8 @@ next_state_table = {
     SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
     ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
     PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
-    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD}
+    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SET_DEAD: DEAD},
+    DEAD: {IDLE: DEAD, SET_SCISSOR: DEAD, SET_ROCK: DEAD, SET_PAPER: DEAD, SET_DAMAGED: DEAD, SET_DEAD: DEAD}
 }
 
 class Player:

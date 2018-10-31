@@ -1,4 +1,5 @@
 import game_framework
+import game_world
 from pico2d import *
 import main_state
 import title_state
@@ -51,6 +52,9 @@ def enter():
     image_easy = Level_Easy()
     image_normal = Level_Normal()
     image_hard = Level_Hard()
+    #game_world.add_object(image_easy, 0)
+    #game_world.add_object(image_normal, 1)
+    #game_world.add_object(image_hard, 1)
     pass
 
 
@@ -59,6 +63,7 @@ def exit():
     del image_easy
     del image_normal
     del image_hard
+    #game_world.clear()
     pass
 
 
