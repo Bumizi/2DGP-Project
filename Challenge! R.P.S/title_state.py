@@ -12,7 +12,7 @@ exit_image = None
 
 class MainScreen:
     def __init__(self):
-        self.image = load_image('RPS.png')
+        self.image = load_image('resource_title\RPS.png')
 
     def draw(self):
         self.image.clip_draw(0, 0, 512, 512, 800//2, 500//2, 800, 500)
@@ -20,7 +20,7 @@ class MainScreen:
 
 class StartButton:
     def __init__(self):
-        self.image = load_image('start.png')
+        self.image = load_image('resource_title\start.png')
         self.x, self.y, self.w, self.h = 300, 50, 100, 50
 
     def draw(self):
@@ -29,7 +29,7 @@ class StartButton:
 
 class ExitButton:
     def __init__(self):
-        self.image = load_image('exit.png')
+        self.image = load_image('resource_title\exit.png')
         self.x, self.y, self.w, self.h = 500, 50, 100, 50
 
     def draw(self):

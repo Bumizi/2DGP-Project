@@ -13,7 +13,7 @@ game_level = None
 
 class Level_Easy:
     def __init__(self):
-        self.image = load_image('level_easy.png')
+        self.image = load_image('resource_level\level_easy.png')
         self.x, self.y, self.w, self.h = 400, 400, 100, 50
 
     def draw(self):
@@ -22,7 +22,7 @@ class Level_Easy:
 
 class Level_Normal:
     def __init__(self):
-        self.image = load_image('level_normal.png')
+        self.image = load_image('resource_level\level_normal.png')
         self.x, self.y, self.w, self.h = 400, 320, 100, 50
 
     def draw(self):
@@ -31,7 +31,7 @@ class Level_Normal:
 
 class Level_Hard:
     def __init__(self):
-        self.image = load_image('level_hard.png')
+        self.image = load_image('resource_level\level_hard.png')
         self.x, self.y, self.w, self.h = 400, 240, 100, 50
 
     def draw(self):

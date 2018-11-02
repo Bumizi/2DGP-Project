@@ -20,8 +20,8 @@ class IDLE:
     @staticmethod
     def enter(block, event):
         Select_Block.rock, Select_Block.scissor, Select_Block.paper= load_image(
-            'select_rock.png'), load_image('select_scissor.png'), load_image(
-            'select_paper.png')
+            'resource_select\select_rock.png'), load_image('resource_select\select_scissor.png'), load_image(
+            'resource_select\select_paper.png')
         pass
 
     @staticmethod
@@ -45,8 +45,8 @@ class ROCK:
     @staticmethod
     def enter(block, event):
         Select_Block.rock, Select_Block.scissor, Select_Block.paper, Select_Block.border = load_image(
-            'select_rock.png'), load_image('select_scissor.png'), load_image(
-            'select_paper.png'), load_image('red_border.png')
+            'resource_select\select_rock.png'), load_image('resource_select\select_scissor.png'), load_image(
+            'resource_select\select_paper.png'), load_image('resource_select\Red_border.png')
         block.border_x, block.border_y = block.rock_x, block.rock_y
         pass
 
@@ -71,8 +71,8 @@ class SCISSOR:
     @staticmethod
     def enter(block, event):
         Select_Block.rock, Select_Block.scissor, Select_Block.paper, Select_Block.border = load_image(
-            'select_rock.png'), load_image('select_scissor.png'), load_image(
-            'select_paper.png'), load_image('red_border.png')
+            'resource_select\select_rock.png'), load_image('resource_select\select_scissor.png'), load_image(
+            'resource_select\select_paper.png'), load_image('resource_select\Red_border.png')
         block.border_x, block.border_y = block.scissor_x, block.scissor_y
         pass
 
@@ -95,8 +95,8 @@ class SCISSOR:
 class PAPER:
     @staticmethod
     def enter(block, event):
-        Select_Block.rock, Select_Block.scissor, Select_Block.paper, Select_Block.border = load_image('select_rock.png'), load_image('select_scissor.png'), load_image(
-            'select_paper.png'), load_image('red_border.png')
+        Select_Block.rock, Select_Block.scissor, Select_Block.paper, Select_Block.border = load_image('resource_select\select_rock.png'), load_image('resource_select\select_scissor.png'), load_image(
+            'resource_select\select_paper.png'), load_image('resource_select\Red_border.png')
         block.border_x, block.border_y = block.paper_x, block.paper_y
         pass
 
@@ -133,7 +133,7 @@ class Select_Block:
         self.rock_x, self.rock_y, self.rock_w, self.rock_h = 400, 80, 80, 80
         self.paper_x, self.paper_y, self.paper_w, self.paper_h = 600, 80, 80, 80
         self.border_x, self.border_y, self.border_w, self.border_h = 0, 0, 90, 90
-        self.rock, scissor, paper, border = load_image('select_rock.png'), load_image('select_scissor.png'), load_image('select_paper.png'), load_image('red_border.png')
+        self.rock, scissor, paper, border = load_image('resource_select\select_rock.png'), load_image('resource_select\select_scissor.png'), load_image('resource_select\select_paper.png'), load_image('resource_select\Red_border.png')
         self.event_que = []
         self.cur_state = IDLE
         self.cur_state.enter(self, None)

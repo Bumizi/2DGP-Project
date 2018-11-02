@@ -12,7 +12,7 @@ image_restart = None
 
 class Pause:
     def __init__(self):
-        self.image = load_image('pause.png')
+        self.image = load_image('resource_pause\pause.png')
         self.x, self.y, self.w, self.h = 400, 300, 150, 150
 
     def draw(self):
@@ -24,7 +24,7 @@ class Pause:
 
 class Restart:
     def __init__(self):
-        self.image = load_image('restart.png')
+        self.image = load_image('resource_pause\Restart.png')
         self.x, self.y, self.w, self.h = 370, 150, 100, 50
 
     def draw(self):
@@ -36,7 +36,7 @@ class Restart:
 
 class Quit:
     def __init__(self):
-        self.image = load_image('quit.png')
+        self.image = load_image('resource_pause\quit.png')
         self.x, self.y, self.w, self.h = 530, 150, 100, 50
 
     def draw(self):
@@ -48,7 +48,7 @@ class Quit:
 
 class Continue:
     def __init__(self):
-        self.image = load_image('continue.png')
+        self.image = load_image('resource_pause\continue.png')
         self.x, self.y, self.w, self.h = 210, 150, 100, 50
 
     def draw(self):

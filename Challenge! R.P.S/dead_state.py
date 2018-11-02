@@ -13,7 +13,7 @@ image_quit = None
 
 class GameOver:
     def __init__(self):
-        self.image = load_image('game_over.jpg')
+        self.image = load_image('resource_dead\game_over.jpg')
         self.x, self.y, self.w, self.h = 400, 300, 200, 200
 
     def draw(self):
@@ -25,7 +25,7 @@ class GameOver:
 
 class Restart:
     def __init__(self):
-        self.image = load_image('restart.png')
+        self.image = load_image('resource_dead\Restart.png')
         self.x, self.y, self.w, self.h = 320, 150, 100, 50
 
     def draw(self):
@@ -37,7 +37,7 @@ class Restart:
 
 class Quit:
     def __init__(self):
-        self.image = load_image('quit.png')
+        self.image = load_image('resource_dead\quit.png')
         self.x, self.y, self.w, self.h = 480, 150, 100, 50
 
     def draw(self):

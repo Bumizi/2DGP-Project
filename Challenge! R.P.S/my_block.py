@@ -40,7 +40,7 @@ class IDLE:
 class ROCK:
     @staticmethod
     def enter(block, event):
-        MY_Block.rock = load_image('my_rock.png')
+        MY_Block.rock = load_image('resource_player\my_rock.png')
         pass
 
     @staticmethod
@@ -59,7 +59,7 @@ class ROCK:
 class SCISSOR:
     @staticmethod
     def enter(block, event):
-        MY_Block.scissor = load_image('my_scissor.png')
+        MY_Block.scissor = load_image('resource_player\my_scissor.png')
         pass
 
     @staticmethod
@@ -78,7 +78,7 @@ class SCISSOR:
 class PAPER:
     @staticmethod
     def enter(block, event):
-        MY_Block.paper = load_image('my_paper.png')
+        MY_Block.paper = load_image('resource_player\my_paper.png')
         pass
 
     @staticmethod
@@ -110,7 +110,7 @@ class MY_Block:
 
     def __init__(self):
         self.x, self.y, self.w, self.h = 640, 220, 80, 80
-        self.rock, scissor, paper = load_image('my_rock.png'), load_image('my_scissor.png'), load_image('my_paper.png')
+        self.rock, scissor, paper = load_image('resource_player\my_rock.png'), load_image('resource_player\my_scissor.png'), load_image('resource_player\my_paper.png')
         self.event_que = []
         self.cur_state = IDLE
         self.cur_state.enter(self, None)
