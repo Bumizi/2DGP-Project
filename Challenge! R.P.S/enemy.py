@@ -58,7 +58,7 @@ class ROCK:
     def enter(enemy, event):
         global enter_timer
         enemy.frame = 0
-        enemy.image = load_image('resource_enemy\enemy_attack.png')
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
 
     @staticmethod
     def exit(enemy, event):
@@ -66,8 +66,8 @@ class ROCK:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 1.5:
-            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
+        if enemy.frame < 3:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
                 enemy.image = load_image('resource_enemy\enemy_idle.png')
@@ -75,8 +75,8 @@ class ROCK:
 
     @staticmethod
     def draw(enemy):
-        if enemy.image == 'resource_enemy\enemy_attack.png':
-            enemy.image.clip_draw(int(enemy.frame) * int(444 / 6), 0, int(444 / 6), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         else:
             enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
                                             enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
@@ -90,7 +90,7 @@ class SCISSOR:
     def enter(enemy, event):
         global enter_timer
         enemy.frame = 0
-        enemy.image = load_image('resource_enemy\enemy_attack.png')
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
 
     @staticmethod
     def exit(enemy, event):
@@ -98,8 +98,8 @@ class SCISSOR:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 1.5:
-            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
+        if enemy.frame < 3:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
                 enemy.image = load_image('resource_enemy\enemy_idle.png')
@@ -107,8 +107,8 @@ class SCISSOR:
 
     @staticmethod
     def draw(enemy):
-        if enemy.image == 'resource_enemy\enemy_attack.png':
-            enemy.image.clip_draw(int(enemy.frame) * int(444 / 6), 0, int(444 / 6), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         else:
             enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
                                             enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
@@ -121,7 +121,7 @@ class PAPER:
     @staticmethod
     def enter(player, event):
         player.frame = 0
-        player.image = load_image('resource_enemy\enemy_attack.png')
+        player.image = load_image('resource_enemy\enemy_attack1.png')
 
     @staticmethod
     def exit(player, event):
@@ -129,8 +129,8 @@ class PAPER:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 1.5:
-            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
+        if enemy.frame < 3:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
                 enemy.image = load_image('resource_enemy\enemy_idle.png')
@@ -138,8 +138,8 @@ class PAPER:
 
     @staticmethod
     def draw(enemy):
-        if enemy.image == 'resource_enemy\enemy_attack.png':
-            enemy.image.clip_draw(int(enemy.frame) * int(444 / 6), 0, int(444 / 6), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         else:
             enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
                                             enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
@@ -227,11 +227,5 @@ class Enemy:
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
-            if key_event == SET_SCISSOR:
-                pass
-            elif key_event == SET_PAPER:
-                pass
-            elif key_event == SET_ROCK:
-                pass
             self.add_event(key_event)
 
