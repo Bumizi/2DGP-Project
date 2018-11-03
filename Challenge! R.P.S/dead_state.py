@@ -7,7 +7,7 @@ from player import Player
 
 
 name = "DeadState"
-image_gameover = None
+image_game_over = None
 image_restart = None
 image_quit = None
 
@@ -57,21 +57,18 @@ def collision(x1, y1, x2, y2, px, py):
 
 
 def enter():
-    global image_gameover, image_restart, image_quit
-    image_gameover = GameOver()
+    global image_game_over, image_restart, image_quit
+    image_game_over = GameOver()
     image_restart = Restart()
     image_quit = Quit()
-    game_world.add_object(image_gameover, 0)
+    game_world.add_object(image_game_over, 0)
     game_world.add_object(image_restart, 1)
     game_world.add_object(image_quit, 1)
     pass
 
 
 def exit():
-    global image_gameover, image_restart, image_quit
-    del image_gameover
-    del image_restart
-    del image_quit
+    global image_game_over, image_restart, image_quit
     game_world.clear()
     pass
 

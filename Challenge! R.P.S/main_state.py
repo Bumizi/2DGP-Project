@@ -35,20 +35,6 @@ class Grass:
         self.image.draw(400, 30)
 
 
-class Enemy:
-    def __init__(self):
-        self.x, self.y = random.randint(100, 700), 90
-        self.frame = random.randint(0, 7)
-        self.image = load_image('run_animation.png')
-
-    def update(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += 5
-
-    def draw(self):
-        self.image.clip_draw(self.frame*100, 0, 100, 100, self.x, self.y)
-
-
 class Ball21x21:
     def __init__(self):
         self.x, self.y = random.randint(40, 700), 600
@@ -94,11 +80,6 @@ def enter():
 
 def exit():
     global grass, character_enemy, character_player, select, player_block
-    del character_player
-    del grass
-    del character_enemy
-    del select
-    del player_block
     game_world.clear()
     pass
 
@@ -123,6 +104,7 @@ def handle_events():
             #game_framework.push_state(pause_state)
         else:
             character_player.handle_event(event)
+            character_enemy.handle_event(event)
             select.handle_event(event)
             player_block.handle_event(event)
 
