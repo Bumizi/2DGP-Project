@@ -31,9 +31,6 @@ class IDLE:
     @staticmethod
     def draw(block):
         pass
-        #player.scissor.clip_draw(0, 0, 130, 150, player.scissor_x, player.scissor_y, player.scissor_w, player.scissor_h)
-        #player.rock.clip_draw(0, 0, 130, 150, player.rock_x, player.rock_y, player.rock_w, player.rock_h)
-        #player.paper.clip_draw(0, 0, 160, 150, player.paper_x, player.paper_y, player.paper_w, player.paper_h)
 
 
 # ROCK state functions

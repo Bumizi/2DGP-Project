@@ -22,19 +22,19 @@ character_enemy = None
 player_block = None
 enemy_block = None
 select = None
-grass = None
+background = None
 font = None
 
 
-class Grass:
+class BackGround:
     def __init__(self):
-        self.image = load_image('grass.png')
+        self.image = load_image('back.jpg')
 
     def update(self):
         pass
 
     def draw(self):
-        self.image.draw(400, 30)
+        self.image.clip_draw(0, 0, 612, 357, 400, 250, 800, 500)
 
 
 class Ball21x21:
@@ -66,24 +66,24 @@ class Ball41x41:
 
 
 def enter():
-    global grass, character_enemy, character_player, select, player_block, enemy_block
+    global background, character_enemy, character_player, select, player_block, enemy_block
     character_player = Player()
     character_enemy = Enemy()
     select = Select_Block()
     player_block = MY_Block()
     enemy_block = Enemy_Block()
-    grass = Grass()
-    game_world.add_object(grass, 0)
+    background = BackGround()
+    game_world.add_object(background, 0)
+    game_world.add_object(character_player, 1)
+    game_world.add_object(character_enemy, 1)
     game_world.add_object(select, 1)
     game_world.add_object(player_block, 1)
     game_world.add_object(enemy_block, 1)
-    game_world.add_object(character_player, 1)
-    game_world.add_object(character_enemy, 1)
     pass
 
 
 def exit():
-    global grass, character_enemy, character_player, select, player_block, enemy_block
+    global background, character_enemy, character_player, select, player_block, enemy_block
     game_world.clear()
     pass
 
