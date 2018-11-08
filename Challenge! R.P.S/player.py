@@ -80,11 +80,11 @@ class ROCK:
         #if until_timer - enter_timer < 1:
             #player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         if player.frame < 1.5:
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         #player.timer -= 1
         #player.x += player.velocity
 
@@ -122,11 +122,11 @@ class SCISSOR:
         until_timer = get_time()
         # print("Time: %f" % player.timer)
         if player.frame < 1.5:
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         #boy.x += boy.velocity * 5
 
     @staticmethod
@@ -160,11 +160,11 @@ class PAPER:
         until_timer = get_time()
         # print("Time: %f" % player.timer)
         if player.frame < 1.5:
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
-            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         # boy.x += boy.velocity * 5
 
     @staticmethod

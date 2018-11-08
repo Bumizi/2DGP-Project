@@ -12,7 +12,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 #Action Speed
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
-FRAMES_PER_ACTION = 3
+FRAMES_PER_ACTION = 4
 
 
 # Boy Event
@@ -66,7 +66,7 @@ class ROCK:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 3:
+        if enemy.frame < 2.5:
             enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
@@ -98,7 +98,7 @@ class SCISSOR:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 3:
+        if enemy.frame < 2.5:
             enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
@@ -129,7 +129,7 @@ class PAPER:
 
     @staticmethod
     def do(enemy):
-        if enemy.frame < 3:
+        if enemy.frame < 2.5:
             enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if enemy.image != 'resource_enemy\enemy_idle.png':
