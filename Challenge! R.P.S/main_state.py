@@ -20,7 +20,7 @@ name = "MainState"
 character_player = None
 character_enemy = None
 player_block = None
-enemy_block = None
+#enemy_block = None
 select = None
 background = None
 font = None
@@ -66,24 +66,24 @@ class Ball41x41:
 
 
 def enter():
-    global background, character_enemy, character_player, select, player_block, enemy_block
+    global background, character_enemy, character_player, select, player_block#, enemy_block
     character_player = Player()
     character_enemy = Enemy()
     select = Select_Block()
     player_block = MY_Block()
-    enemy_block = Enemy_Block()
+    #1enemy_block = Enemy_Block()
     background = BackGround()
     game_world.add_object(background, 0)
     game_world.add_object(character_player, 1)
     game_world.add_object(character_enemy, 1)
     game_world.add_object(select, 1)
     game_world.add_object(player_block, 1)
-    game_world.add_object(enemy_block, 1)
+    #game_world.add_object(enemy_block, 1)
     pass
 
 
 def exit():
-    global background, character_enemy, character_player, select, player_block, enemy_block
+    global background, character_enemy, character_player, select, player_block#, enemy_block
     game_world.clear()
     pass
 
@@ -111,7 +111,7 @@ def handle_events():
             character_enemy.handle_event(event)
             select.handle_event(event)
             player_block.handle_event(event)
-            enemy_block.handle_event(event)
+            #enemy_block.handle_event(event)
 
 
 

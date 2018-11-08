@@ -1,7 +1,8 @@
 from pico2d import *
 import game_framework
+import game_world
 import dead_state
-from block import Block
+from enemy_block import Enemy_Block
 
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 20.0 #km/hour
@@ -15,14 +16,15 @@ ACTION_PER_TIME = 1.0/TIME_PER_ACTION
 FRAMES_PER_ACTION = 4
 
 
-# Boy Event
-IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED = range(5)
+# Enemy Event
+IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
     (SDL_KEYDOWN, SDLK_2): SET_ROCK,
     (SDL_KEYDOWN, SDLK_3): SET_PAPER,
     (SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
+    (SDL_KEYDOWN, SDLK_SPACE): SPACE
 }
 
 
@@ -36,6 +38,8 @@ class IDLE:
 
     @staticmethod
     def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
         pass
 
     @staticmethod
@@ -62,6 +66,8 @@ class ROCK:
 
     @staticmethod
     def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
         pass
 
     @staticmethod
@@ -94,6 +100,8 @@ class SCISSOR:
 
     @staticmethod
     def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
         pass
 
     @staticmethod
@@ -119,12 +127,14 @@ class SCISSOR:
 # PAPER state functions
 class PAPER:
     @staticmethod
-    def enter(player, event):
-        player.frame = 0
-        player.image = load_image('resource_enemy\enemy_attack1.png')
+    def enter(enemy, event):
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
 
     @staticmethod
-    def exit(player, event):
+    def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
         pass
 
     @staticmethod
@@ -158,6 +168,8 @@ class DAMAGED:
 
     @staticmethod
     def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
         pass
 
     @staticmethod
@@ -187,16 +199,17 @@ class DAMAGED:
 
 
 next_state_table = {
-    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED},
-    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, }
+    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
+    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
+    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
+    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
+    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
 }
 
 class Enemy:
     image = None
     heart = None
+
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 60, 200, 100, 100
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 100, 140, 20, 20
@@ -207,9 +220,18 @@ class Enemy:
         self.heart_count = 5
         self.cur_state.enter(self, None)
 
+    def fire_ball(self):
+        block = Enemy_Block()
+        #if self.cur_state == SCISSOR:
+            #block.type = 'scissor'
+        #elif self.cur_state == ROCK:
+            #block.type = 'rock'
+        #elif self.cur_state == PAPER:
+            #block.type = 'paper'
+        game_world.add_object(block, 1)
+
     def add_event(self, event):
         self.event_que.insert(0, event)
-
 
     def update(self):
         self.cur_state.do(self)
