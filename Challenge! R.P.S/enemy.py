@@ -2,6 +2,7 @@ from pico2d import *
 import game_framework
 import game_world
 import dead_state
+import main_state
 from enemy_block import Enemy_Block
 
 PIXEL_PER_METER = (10.0/0.3)
@@ -215,6 +216,13 @@ class Enemy:
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 100, 140, 20, 20
         self.image = load_image('resource_enemy\enemy_idle.png')
         self.heart = load_image('resource_enemy\heart.png')
+        #global enemy_blocks
+        #enemy_blocks = [Enemy_Block() for i in range(10)]
+        #game_world.add_object(enemy_blocks, 1)
+        #for block in enemy_blocks:
+        #    if block.exist is False:
+        #        block.exist = True
+        #        break
         self.event_que = []
         self.cur_state = IDLE
         self.heart_count = 5

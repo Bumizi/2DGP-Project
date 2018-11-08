@@ -20,7 +20,7 @@ name = "MainState"
 character_player = None
 character_enemy = None
 player_block = None
-#enemy_block = None
+#enemy_blocks = None
 select = None
 background = None
 font = None
@@ -112,7 +112,6 @@ def handle_events():
             select.handle_event(event)
             player_block.handle_event(event)
             #enemy_block.handle_event(event)
-
 
 
 def update():

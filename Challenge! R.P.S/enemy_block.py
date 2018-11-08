@@ -9,6 +9,8 @@ class Enemy_Block:
 
     def __init__(self):
         self.x, self.y, self.w, self.h = 150, 220, 80, 80
+        #self.exist = False
+        #if self.exist is True:
         Enemy_Block.type = random.randint(1, 3)
         if Enemy_Block.type == 1:
             Enemy_Block.image = load_image('resource_enemy\enemy_rock.jpg')
