@@ -40,7 +40,8 @@ class IDLE:
 class ROCK:
     @staticmethod
     def enter(block, event):
-        MY_Block.rock = load_image('resource_player\my_rock.png')
+        MY_Block.image = load_image('resource_player\my_rock.png')
+        MY_Block.type = 1
         pass
 
     @staticmethod
@@ -53,13 +54,14 @@ class ROCK:
 
     @staticmethod
     def draw(block):
-        block.rock.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
+        block.image.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
 
 # SCISSOR state functions
 class SCISSOR:
     @staticmethod
     def enter(block, event):
-        MY_Block.scissor = load_image('resource_player\my_scissor.png')
+        MY_Block.image = load_image('resource_player\my_scissor.png')
+        MY_Block.type = 2
         pass
 
     @staticmethod
@@ -72,13 +74,14 @@ class SCISSOR:
 
     @staticmethod
     def draw(block):
-        block.scissor.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
+        block.image.clip_draw(0, 0, 130, 150, block.x, block.y, block.w, block.h)
 
 # PAPER state functions
 class PAPER:
     @staticmethod
     def enter(block, event):
-        MY_Block.paper = load_image('resource_player\my_paper.png')
+        MY_Block.image = load_image('resource_player\my_paper.png')
+        MY_Block.type = 3
         pass
 
     @staticmethod
@@ -91,7 +94,7 @@ class PAPER:
 
     @staticmethod
     def draw(block):
-        block.paper.clip_draw(0, 0, 160, 150, block.x, block.y, block.w, block.h)
+        block.image.clip_draw(0, 0, 160, 150, block.x, block.y, block.w, block.h)
 
 
 next_state_table = {
@@ -104,13 +107,11 @@ next_state_table = {
 
 class MY_Block:
     image = None
-    rock = None
-    scissor = None
-    paper = None
+    type = None
 
     def __init__(self):
         self.x, self.y, self.w, self.h = 640, 220, 80, 80
-        self.rock, scissor, paper = load_image('resource_player\my_rock.png'), load_image('resource_player\my_scissor.png'), load_image('resource_player\my_paper.png')
+        #self.rock, scissor, paper = load_image('resource_player\my_rock.png'), load_image('resource_player\my_scissor.png'), load_image('resource_player\my_paper.png')
         self.event_que = []
         self.cur_state = IDLE
         self.cur_state.enter(self, None)

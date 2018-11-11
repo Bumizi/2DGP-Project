@@ -2,6 +2,10 @@ from pico2d import *
 import game_world
 import game_framework
 from my_block import MY_Block
+import player
+import enemy
+from player import Player
+from enemy import Enemy
 import random
 
 class Enemy_Block:
@@ -38,6 +42,33 @@ class Enemy_Block:
     def update(self):
         self.x += self.velocity * game_framework.frame_time
         if self.collide(MY_Block):
+            if self.type == 1: #바위
+                if MY_Block.type == 1: #바위
+                    pass
+                elif MY_Block.type == 2: #가위
+                    Player.add_event(Player, player.SET_DAMAGED)
+                    pass
+                elif MY_Block.type == 3: #보
+                    Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    pass
+            elif self.type == 2: #가위
+                if MY_Block.type == 1: #바위
+                    Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    pass
+                elif MY_Block.type == 2: #가위
+                    pass
+                elif MY_Block.type == 3: #보
+                    Player.add_event(Player, player.SET_DAMAGED)
+                    pass
+            elif self.type == 3: #보
+                if MY_Block.type == 1: #바위
+                    Player.add_event(Player, player.SET_DAMAGED)
+                    pass
+                elif MY_Block.type == 2: #가위
+                    Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    pass
+                elif MY_Block.type == 3: #보
+                    pass
             game_world.remove_object(self)
         if self.x < 25 or self.x > 800 - 25:
             game_world.remove_object(self)

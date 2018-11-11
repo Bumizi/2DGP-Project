@@ -111,6 +111,9 @@ def handle_events():
             character_enemy.handle_event(event)
             select.handle_event(event)
             player_block.handle_event(event)
+            if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+                block = Enemy_Block()
+                game_world.add_object(block, 1)
             #enemy_block.handle_event(event)
 
 

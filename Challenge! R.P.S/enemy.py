@@ -3,7 +3,7 @@ import game_framework
 import game_world
 import dead_state
 import main_state
-from enemy_block import Enemy_Block
+#from enemy_block import Enemy_Block
 
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 20.0 #km/hour
@@ -210,7 +210,7 @@ next_state_table = {
 class Enemy:
     image = None
     heart = None
-
+    event_que = []
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 60, 200, 100, 100
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 100, 140, 20, 20
@@ -223,20 +223,21 @@ class Enemy:
         #    if block.exist is False:
         #        block.exist = True
         #        break
-        self.event_que = []
+        #self.
         self.cur_state = IDLE
         self.heart_count = 5
         self.cur_state.enter(self, None)
 
     def fire_ball(self):
-        block = Enemy_Block()
+        #block = Enemy_Block()
         #if self.cur_state == SCISSOR:
             #block.type = 'scissor'
         #elif self.cur_state == ROCK:
             #block.type = 'rock'
         #elif self.cur_state == PAPER:
             #block.type = 'paper'
-        game_world.add_object(block, 1)
+        #game_world.add_object(block, 1)
+        pass
 
     def add_event(self, event):
         self.event_que.insert(0, event)

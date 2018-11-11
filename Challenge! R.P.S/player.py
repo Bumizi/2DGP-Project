@@ -237,15 +237,16 @@ class Player:
     image = None
     #hand = None
     heart = None
+    heart_count = 5
+    event_que = []
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 730, 200, 100, 100
         #self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 20, 20
         self.image = load_image('resource_player\player_idle.png')
         self.heart = load_image('resource_player\heart.png')
-        self.event_que = []
+        #self.
         self.cur_state = IDLE
-        self.heart_count = 5
         #self.enter_state[IDLE](self)
         self.cur_state.enter(self, None)
 
