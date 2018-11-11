@@ -115,6 +115,10 @@ class MY_Block:
         self.cur_state = IDLE
         self.cur_state.enter(self, None)
 
+    def get_bb(self):
+        #return self.x - 60, self.y - 60, self.x + 60, self.y + 60
+        return 640 + 40 - 30, 220 + 40 - 30, 640 + 40 + 30, 220 + 40 + 30
+
     def draw(self):
         self.cur_state.draw(self)
 

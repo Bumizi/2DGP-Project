@@ -20,7 +20,7 @@ name = "MainState"
 character_player = None
 character_enemy = None
 player_block = None
-#enemy_blocks = None
+enemy_blocks = None
 select = None
 background = None
 font = None
@@ -66,12 +66,12 @@ class Ball41x41:
 
 
 def enter():
-    global background, character_enemy, character_player, select, player_block#, enemy_block
+    global background, character_enemy, character_player, select, player_block, enemy_block
     character_player = Player()
     character_enemy = Enemy()
     select = Select_Block()
     player_block = MY_Block()
-    #1enemy_block = Enemy_Block()
+    enemy_block = Enemy_Block()
     background = BackGround()
     game_world.add_object(background, 0)
     game_world.add_object(character_player, 1)
