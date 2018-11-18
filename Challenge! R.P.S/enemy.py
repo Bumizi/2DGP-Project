@@ -19,14 +19,15 @@ FRAMES_PER_ACTION = 4
 
 # Enemy Event
 #IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
-IDLE, SPACE, SET_DAMAGED = range(3)
+IDLE, SPACE, SET_DAMAGED, SET_ATTACK = range(4)
 
 key_event_table = {
     #(SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
     #(SDL_KEYDOWN, SDLK_2): SET_ROCK,
     #(SDL_KEYDOWN, SDLK_3): SET_PAPER,
     #(SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
-    (SDL_KEYDOWN, SDLK_SPACE): SPACE
+    (SDL_KEYDOWN, SDLK_SPACE): SPACE,
+    (SDL_KEYDOWN, SDLK_SPACE): SET_ATTACK
 }
 
 
@@ -57,7 +58,7 @@ class IDLE:
             enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1,
                                    enemy.heart_h)
 
-
+""""
 # ROCK state functions
 class ROCK:
     @staticmethod
@@ -157,6 +158,39 @@ class PAPER:
                                             enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
             enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
+"""
+
+# Attack state functions
+class ATTACK:
+    @staticmethod
+    def enter(enemy, event):
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
+
+    @staticmethod
+    def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
+        pass
+
+    @staticmethod
+    def do(enemy):
+        if enemy.frame < 2.5:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            if enemy.image != 'resource_enemy\enemy_idle.png':
+                enemy.image = load_image('resource_enemy\enemy_idle.png')
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+
+    @staticmethod
+    def draw(enemy):
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        else:
+            enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
+                                            enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        for i in range(enemy.heart_count):
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
 
 
 # DAMAGED state functions
@@ -202,12 +236,13 @@ class DAMAGED:
 
 next_state_table = {
     #IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
-    IDLE: {SET_DAMAGED: DAMAGED, SPACE: IDLE},
+    IDLE: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE},
+    ATTACK: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: ATTACK},
     #SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
     #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
     #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
     #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
-    DAMAGED: {SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    DAMAGED: {IDLE: IDLE, SET_ATTACK: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
 }
 
 class Enemy:
