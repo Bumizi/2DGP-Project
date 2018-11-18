@@ -74,10 +74,10 @@ def enter():
     enemy_block = Enemy_Block()
     background = BackGround()
     game_world.add_object(background, 0)
+    game_world.add_object(player_block, 1)
+    game_world.add_object(select, 1)
     game_world.add_object(character_player, 1)
     game_world.add_object(character_enemy, 1)
-    game_world.add_object(select, 1)
-    game_world.add_object(player_block, 1)
     #game_world.add_object(enemy_block, 1)
     pass
 

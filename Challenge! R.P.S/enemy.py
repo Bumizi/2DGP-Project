@@ -18,13 +18,14 @@ FRAMES_PER_ACTION = 4
 
 
 # Enemy Event
-IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
+#IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
+IDLE, SPACE, SET_DAMAGED = range(3)
 
 key_event_table = {
-    (SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
-    (SDL_KEYDOWN, SDLK_2): SET_ROCK,
-    (SDL_KEYDOWN, SDLK_3): SET_PAPER,
-    (SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
+    #(SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
+    #(SDL_KEYDOWN, SDLK_2): SET_ROCK,
+    #(SDL_KEYDOWN, SDLK_3): SET_PAPER,
+    #(SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
     (SDL_KEYDOWN, SDLK_SPACE): SPACE
 }
 
@@ -200,11 +201,13 @@ class DAMAGED:
 
 
 next_state_table = {
-    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
-    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
-    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
-    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
-    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    #IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
+    IDLE: {SET_DAMAGED: DAMAGED, SPACE: IDLE},
+    #SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
+    #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
+    #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
+    #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    DAMAGED: {SET_DAMAGED: DAMAGED, SPACE: IDLE}
 }
 
 class Enemy:
@@ -216,14 +219,6 @@ class Enemy:
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 100, 140, 20, 20
         self.image = load_image('resource_enemy\enemy_idle.png')
         self.heart = load_image('resource_enemy\heart.png')
-        #global enemy_blocks
-        #enemy_blocks = [Enemy_Block() for i in range(10)]
-        #game_world.add_object(enemy_blocks, 1)
-        #for block in enemy_blocks:
-        #    if block.exist is False:
-        #        block.exist = True
-        #        break
-        #self.
         self.cur_state = IDLE
         self.heart_count = 5
         self.cur_state.enter(self, None)
