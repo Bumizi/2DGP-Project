@@ -7,13 +7,13 @@ from player import Player
 
 
 name = "VictoryState"
-image_game_over = None
+image_win = None
 image_restart = None
 image_quit = None
 
 class GameOver:
     def __init__(self):
-        self.image = load_image('resource_dead\game_over.jpg')
+        self.image = load_image('resource_victory\game_over.jpg')
         self.x, self.y, self.w, self.h = 400, 300, 200, 200
 
     def draw(self):
