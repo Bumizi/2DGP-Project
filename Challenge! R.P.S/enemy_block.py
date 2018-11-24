@@ -50,11 +50,9 @@ class Enemy_Block:
                     pass
                 elif MY_Block.type == 3: #보
                     Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    pass
             elif self.type == 2: #가위
                 if MY_Block.type == 1: #바위
                     Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    pass
                 elif MY_Block.type == 2: #가위
                     pass
                 elif MY_Block.type == 3: #보
@@ -66,7 +64,6 @@ class Enemy_Block:
                     pass
                 elif MY_Block.type == 2: #가위
                     Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    pass
                 elif MY_Block.type == 3: #보
                     pass
             game_world.remove_object(self)

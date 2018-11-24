@@ -170,8 +170,8 @@ class ATTACK:
     @staticmethod
     def exit(enemy, event):
         if event == SPACE:
-            enemy.fire_ball()
-        pass
+            #enemy.fire_ball()
+            pass
 
     @staticmethod
     def do(enemy):
@@ -242,7 +242,7 @@ next_state_table = {
     #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
     #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
     #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
-    DAMAGED: {IDLE: IDLE, SET_ATTACK: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    DAMAGED: {IDLE: IDLE, SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE}
 }
 
 class Enemy:

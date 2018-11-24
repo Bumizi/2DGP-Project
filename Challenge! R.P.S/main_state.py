@@ -87,7 +87,6 @@ def handle_events():
             character_enemy.handle_event(event)
             select.handle_event(event)
             player_block.handle_event(event)
-            #if attack_time > 5:
             if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
                 block = Enemy_Block()
                 game_world.add_object(block, 1)
@@ -101,10 +100,12 @@ def update():
         game_object.update()
     if attack_time > 500:
         attack_time = 0
-        if len(character_enemy.event_que) != 1:
-            character_enemy.add_event(SET_ATTACK)
-            block = Enemy_Block()
-            game_world.add_object(block, 1)
+        character_enemy.add_event(SET_ATTACK)
+        #if len(character_enemy.event_que) > 1:
+            #character_enemy.event_que.pop()
+            #character_enemy.add_event(SET_ATTACK)
+        block = Enemy_Block()
+        game_world.add_object(block, 1)
     pass
 
 
