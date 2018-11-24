@@ -13,7 +13,7 @@ image_quit = None
 
 class GameOver:
     def __init__(self):
-        self.image = load_image('resource_victory\win.jpg')
+        self.image = load_image('resource_victory\win.png')
         self.x, self.y, self.w, self.h = 400, 300, 200, 200
 
     def draw(self):

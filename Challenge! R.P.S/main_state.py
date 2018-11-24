@@ -101,9 +101,10 @@ def update():
         game_object.update()
     if attack_time > 500:
         attack_time = 0
-        character_enemy.add_event(SET_ATTACK)
-        block = Enemy_Block()
-        game_world.add_object(block, 1)
+        if len(character_enemy.event_que) != 1:
+            character_enemy.add_event(SET_ATTACK)
+            block = Enemy_Block()
+            game_world.add_object(block, 1)
     pass
 
 

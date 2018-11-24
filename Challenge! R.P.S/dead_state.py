@@ -61,7 +61,7 @@ def enter():
     image_game_over = GameOver()
     image_restart = Restart()
     image_quit = Quit()
-    game_world.add_object(image_game_over, 0)
+    game_world.add_object(image_game_over, 1)
     game_world.add_object(image_restart, 1)
     game_world.add_object(image_quit, 1)
     pass

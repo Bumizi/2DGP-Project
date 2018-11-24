@@ -1,7 +1,7 @@
 from pico2d import *
 import game_framework
 import game_world
-import dead_state
+import victory_state
 
 #from enemy_block import Enemy_Block
 
@@ -220,7 +220,7 @@ class DAMAGED:
                 enemy.image = load_image('resource_enemy\enemy_dead.png')
                 enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
             else:
-                game_framework.push_state(dead_state)
+                game_framework.push_state(victory_state)
 
     @staticmethod
     def draw(enemy):
