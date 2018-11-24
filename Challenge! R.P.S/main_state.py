@@ -35,35 +35,7 @@ class BackGround:
 
     def draw(self):
         self.image.clip_draw(0, 0, 612, 357, 400, 250, 800, 500)
-
-
-class Ball21x21:
-    def __init__(self):
-        self.x, self.y = random.randint(40, 700), 600
-        self.image = load_image('ball21x21.png')
-        self.speed = random.randint(5, 20)
-
-    def update(self):
-        if self.y > 60:
-            self.y -= self.speed
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Ball41x41:
-    def __init__(self):
-        self.x, self.y = random.randint(40, 700), 600
-        self.image = load_image('ball41x41.png')
-        self.speed = random.randint(5, 20)
-
-    def update(self):
-        if self.y > 70:
-            self.y -= self.speed
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
+        
 
 def enter():
     global background, character_enemy, character_player, select, player_block, enemy_block
