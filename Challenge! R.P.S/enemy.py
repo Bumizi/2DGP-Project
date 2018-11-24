@@ -2,7 +2,7 @@ from pico2d import *
 import game_framework
 import game_world
 import dead_state
-import main_state
+
 #from enemy_block import Enemy_Block
 
 PIXEL_PER_METER = (10.0/0.3)

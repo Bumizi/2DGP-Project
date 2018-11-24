@@ -78,13 +78,15 @@ def quit():
 
 import time
 frame_time = 0.0
+current_time = 0.0
+
 
 def run(start_state):
     global running, stack
     running = True
     stack = [start_state]
     start_state.enter()
-    global frame_time
+    global frame_time, current_time
     current_time = time.time()
     while (running):
         stack[-1].handle_events()
