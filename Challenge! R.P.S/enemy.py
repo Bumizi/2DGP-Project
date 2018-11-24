@@ -2,6 +2,7 @@ from pico2d import *
 import game_framework
 import game_world
 import victory_state
+import dead_state
 
 #from enemy_block import Enemy_Block
 
@@ -19,7 +20,7 @@ FRAMES_PER_ACTION = 4
 
 # Enemy Event
 #IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
-IDLE, SPACE, SET_DAMAGED, SET_ATTACK = range(4)
+IDLE, SPACE, SET_DAMAGED, SET_ATTACK, SET_VICTORY = range(5)
 
 key_event_table = {
     #(SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
@@ -221,33 +222,60 @@ class DAMAGED:
                 enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
             else:
                 game_framework.push_state(victory_state)
+                pass
 
     @staticmethod
     def draw(enemy):
-        if enemy.heart_count > 0:
-            enemy.image.clip_draw(int(enemy.frame) * int(144 / 2), 0, int(144 / 2), 95, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
-        else:
-            enemy.image.clip_draw(int(enemy.frame) * int(322 / 4.2), 0, int(322 / 4.2), 90,
-                                            enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        #if enemy.heart_count > 0:
+        enemy.image.clip_draw(int(enemy.frame) * int(144 / 2), 0, int(144 / 2), 95, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        #else:
+            #enemy.image.clip_draw(int(enemy.frame) * int(322 / 4.2), 0, int(322 / 4.2), 90,
+                                            #enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
             enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y,
                                   enemy.heart_w - 1, enemy.heart_h)
 
 
+# VICTORY state functions
+class VICTORY:
+    @staticmethod
+    def enter(enemy, event):
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_victory.png')
+
+    @staticmethod
+    def exit(enemy, event):
+        pass
+
+    @staticmethod
+    def do(enemy):
+        if enemy.frame < 1.5:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            game_framework.push_state(dead_state)
+
+    @staticmethod
+    def draw(enemy):
+        enemy.image.clip_composite_draw(int(enemy.frame) * int(296 / 4), 0, int(296 / 4), 96, 0, 'h', enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+
+
+
 next_state_table = {
     #IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
-    IDLE: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE},
-    ATTACK: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: ATTACK},
+    IDLE: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE, SET_VICTORY: VICTORY},
+    ATTACK: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: ATTACK, SET_VICTORY: VICTORY},
     #SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
     #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
     #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
     #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
-    DAMAGED: {IDLE: IDLE, SET_ATTACK: IDLE, SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    DAMAGED: {IDLE: IDLE, SET_ATTACK: IDLE, SET_DAMAGED: IDLE, SPACE: IDLE, SET_VICTORY: VICTORY},
+    #VICTORY: {IDLE: VICTORY, SET_ATTACK: VICTORY, SET_DAMAGED: VICTORY, SPACE: VICTORY, SET_VICTORY: VICTORY}
 }
 
 class Enemy:
     image = None
     heart = None
+    heart_count = 5
     event_que = []
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 60, 200, 100, 100
@@ -255,7 +283,6 @@ class Enemy:
         self.image = load_image('resource_enemy\enemy_idle.png')
         self.heart = load_image('resource_enemy\heart.png')
         self.cur_state = IDLE
-        self.heart_count = 5
         self.cur_state.enter(self, None)
 
     def fire_ball(self):

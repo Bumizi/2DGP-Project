@@ -3,7 +3,6 @@ import game_world
 from pico2d import *
 import main_state
 import title_state
-from player import Player
 
 
 name = "VictoryState"
@@ -11,10 +10,10 @@ image_win = None
 image_restart = None
 image_quit = None
 
-class GameOver:
+class Victory:
     def __init__(self):
         self.image = load_image('resource_victory\win.png')
-        self.x, self.y, self.w, self.h = 400, 300, 200, 200
+        self.x, self.y, self.w, self.h = 400, 300, 300, 200
 
     def draw(self):
         self.image.clip_draw(0, 0, 300, 100, self.x, self.y, self.w, self.h)
@@ -58,10 +57,10 @@ def collision(x1, y1, x2, y2, px, py):
 
 def enter():
     global image_game_over, image_restart, image_quit
-    image_game_over = GameOver()
+    image_game_over = Victory()
     image_restart = Restart()
     image_quit = Quit()
-    game_world.add_object(image_game_over, 0)
+    game_world.add_object(image_game_over, 1)
     game_world.add_object(image_restart, 1)
     game_world.add_object(image_quit, 1)
     pass

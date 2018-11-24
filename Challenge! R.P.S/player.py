@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
 import dead_state
+import victory_state
 from block import Block
 
 # Boy State
@@ -19,7 +20,7 @@ FRAMES_PER_ACTION = 3
 
 
 # Boy Event
-IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED = range(5)
+IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SET_VICTORY = range(6)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
@@ -55,6 +56,7 @@ class IDLE:
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1,
                                  player.heart_h)
+
 
 # ROCK state functions
 class ROCK:
@@ -100,6 +102,7 @@ class ROCK:
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
+
 # SCISSOR state functions
 class SCISSOR:
     @staticmethod
@@ -142,6 +145,7 @@ class SCISSOR:
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
+
 # PAPER state functions
 class PAPER:
     @staticmethod
@@ -180,6 +184,7 @@ class PAPER:
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
+
 # DAMAGED state functions
 class DAMAGED:
     damaged_timer = 0
@@ -197,9 +202,6 @@ class DAMAGED:
 
     @staticmethod
     def do(player):
-        global damaged_timer
-        until_timer = get_time()
-        # print("Time: %f" % player.timer)
         if player.heart_count > 0:
             if player.frame < 1.5:
                 player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
@@ -211,41 +213,61 @@ class DAMAGED:
                 player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
             else:
                 game_framework.push_state(dead_state)
-        # boy.x += boy.velocity * 5
 
     @staticmethod
     def draw(player):
-        if player.heart_count > 0:
-            player.image.clip_composite_draw(int(player.frame) * int(208 / 4), 0, int(208 / 4), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
-        else:
-            player.image.clip_composite_draw(int(player.frame) * int(365 / 6), 0, int(365 / 6), 100, 0, 'h',
-                                             player.image_x, player.image_y, player.image_w, player.image_h)
+        #if player.heart_count > 0:
+        player.image.clip_composite_draw(int(player.frame) * int(208 / 4), 0, int(208 / 4), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+        #else:
+            #player.image.clip_composite_draw(int(player.frame) * int(365 / 6), 0, int(365 / 6), 100, 0, 'h',
+                                             #player.image_x, player.image_y, player.image_w, player.image_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y,
                                        player.heart_w - 1, player.heart_h)
 
 
+# VICTORY state functions
+class VICTORY:
+    @staticmethod
+    def enter(player, event):
+        player.frame = 0
+        player.image = load_image('resource_player\player_victory.png')
+
+    @staticmethod
+    def exit(player, event):
+        pass
+
+    @staticmethod
+    def do(player):
+        if player.frame < 1.5:
+            player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        else:
+            game_framework.push_state(victory_state)
+
+    @staticmethod
+    def draw(player):
+        player.image.clip_composite_draw(int(player.frame) * int(156 / 3), 0, int(156 / 3), 125, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
+
+
 next_state_table = {
-    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED},
-    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED},
-    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, }
+    IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
+    SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
+    ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
+    PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
+    DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY },
+    #VICTORY: {IDLE: VICTORY, SET_SCISSOR: VICTORY, SET_ROCK: VICTORY, SET_PAPER: VICTORY, SET_DAMAGED: VICTORY, SET_VICTORY: VICTORY}
 }
 
 class Player:
     image = None
-    #hand = None
     heart = None
     heart_count = 5
     event_que = []
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 730, 200, 100, 100
-        #self.hand_x, self.hand_y, self.hand_w, self.hand_h = self.image_x-100, self.image_y, 80, 80
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 20, 20
         self.image = load_image('resource_player\player_idle.png')
         self.heart = load_image('resource_player\heart.png')
-        #self.
         self.cur_state = IDLE
         #self.enter_state[IDLE](self)
         self.cur_state.enter(self, None)
@@ -283,11 +305,5 @@ class Player:
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
-            if key_event == SET_SCISSOR:
-                pass
-            elif key_event == SET_PAPER:
-                pass
-            elif key_event == SET_ROCK:
-                pass
             self.add_event(key_event)
 

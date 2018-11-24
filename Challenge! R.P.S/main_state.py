@@ -96,8 +96,6 @@ def handle_events():
 def update():
     global attack_time
     attack_time += 1
-    for game_object in game_world.all_objects():
-        game_object.update()
     if attack_time > 400:
         attack_time = 0
         character_enemy.add_event(SET_ATTACK)
@@ -106,6 +104,18 @@ def update():
             #character_enemy.add_event(SET_ATTACK)
         block = Enemy_Block()
         game_world.add_object(block, 1)
+    #if character_player.heart_count <= 0: #플레이어가 지면
+        #character_player.add_event(SET_DAMAGED)
+        #character_enemy.add_event(SET_VICTORY)
+        # character_player.add_event(SET_VICTORY)
+    #if character_enemy.heart_count <= 0: #플레이어가 이기면
+        #character_enemy.add_event(SET_DAMAGED)
+        #character_player.add_event(SET_VICTORY)
+        # character_enemy.add_event(SET_VICTORY)
+
+    for game_object in game_world.all_objects():
+        game_object.update()
+
     pass
 
 
