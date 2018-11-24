@@ -40,7 +40,7 @@ class Enemy_Block:
         return True
 
     def update(self):
-        self.x += self.velocity * game_framework.frame_time
+        self.x += self.velocity * game_framework.frame_time * 3 / 2
         if self.collide(MY_Block):
             if self.type == 1: #바위
                 if MY_Block.type == 1: #바위

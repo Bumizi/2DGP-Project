@@ -98,7 +98,7 @@ def update():
     attack_time += 1
     for game_object in game_world.all_objects():
         game_object.update()
-    if attack_time > 500:
+    if attack_time > 400:
         attack_time = 0
         character_enemy.add_event(SET_ATTACK)
         #if len(character_enemy.event_que) > 1:

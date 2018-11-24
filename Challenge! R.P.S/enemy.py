@@ -210,7 +210,7 @@ class DAMAGED:
 
     @staticmethod
     def do(enemy):
-        if enemy.heart_count > 0:
+        if enemy.heart_count != 0:
             if enemy.frame < 1.5:
                 enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
             else:
@@ -242,7 +242,7 @@ next_state_table = {
     #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
     #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
     #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
-    DAMAGED: {IDLE: IDLE, SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE}
+    DAMAGED: {IDLE: IDLE, SET_ATTACK: IDLE, SET_DAMAGED: DAMAGED, SPACE: IDLE}
 }
 
 class Enemy:
