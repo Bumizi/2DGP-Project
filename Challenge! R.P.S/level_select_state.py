@@ -26,7 +26,7 @@ class Level_Normal:
         self.x, self.y, self.w, self.h = 400, 320, 100, 50
 
     def draw(self):
-        self.image.clip_draw(0, 0, 500, 150, self.x, self.y, self.w, self.h)
+        self.image.clip_draw(0, 0, 700, 150, self.x, self.y, self.w, self.h)
 
 
 class Level_Hard:
