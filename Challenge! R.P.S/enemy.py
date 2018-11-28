@@ -56,13 +56,110 @@ class IDLE:
         enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
                                         enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
-            if i < 5:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + i * enemy.heart_w, enemy.heart_y,
-                                      enemy.heart_w - 1, enemy.heart_h)
-            else:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + (i-5) * enemy.heart_w,
-                                      enemy.heart_y - enemy.heart_h - 5, enemy.heart_w - 1, enemy.heart_h)
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1,
+                                   enemy.heart_h)
 
+""""
+# ROCK state functions
+class ROCK:
+    @staticmethod
+    def enter(enemy, event):
+        global enter_timer
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
+
+    @staticmethod
+    def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
+        pass
+
+    @staticmethod
+    def do(enemy):
+        if enemy.frame < 2.5:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            if enemy.image != 'resource_enemy\enemy_idle.png':
+                enemy.image = load_image('resource_enemy\enemy_idle.png')
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+
+    @staticmethod
+    def draw(enemy):
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        else:
+            enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
+                                            enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        for i in range(enemy.heart_count):
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
+
+
+# SCISSOR state functions
+class SCISSOR:
+    @staticmethod
+    def enter(enemy, event):
+        global enter_timer
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
+
+    @staticmethod
+    def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
+        pass
+
+    @staticmethod
+    def do(enemy):
+        if enemy.frame < 2.5:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            if enemy.image != 'resource_enemy\enemy_idle.png':
+                enemy.image = load_image('resource_enemy\enemy_idle.png')
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+
+    @staticmethod
+    def draw(enemy):
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        else:
+            enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
+                                            enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        for i in range(enemy.heart_count):
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
+
+
+# PAPER state functions
+class PAPER:
+    @staticmethod
+    def enter(enemy, event):
+        enemy.frame = 0
+        enemy.image = load_image('resource_enemy\enemy_attack1.png')
+
+    @staticmethod
+    def exit(enemy, event):
+        if event == SPACE:
+            enemy.fire_ball()
+        pass
+
+    @staticmethod
+    def do(enemy):
+        if enemy.frame < 2.5:
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
+        else:
+            if enemy.image != 'resource_enemy\enemy_idle.png':
+                enemy.image = load_image('resource_enemy\enemy_idle.png')
+            enemy.frame = (enemy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+
+    @staticmethod
+    def draw(enemy):
+        if enemy.image == 'resource_enemy\enemy_attack1.png':
+            enemy.image.clip_draw(int(enemy.frame) * int(300 / 4), 0, int(300 / 4), 90, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        else:
+            enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
+                                            enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
+        for i in range(enemy.heart_count):
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
+"""
 
 # Attack state functions
 class ATTACK:
@@ -74,6 +171,7 @@ class ATTACK:
     @staticmethod
     def exit(enemy, event):
         if event == SPACE:
+            #enemy.fire_ball()
             pass
 
     @staticmethod
@@ -93,12 +191,7 @@ class ATTACK:
             enemy.image.clip_draw(int(enemy.frame) * int(210 / 3), 0, int(210 / 3), 100,
                                             enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
-            if i < 5:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + i * enemy.heart_w, enemy.heart_y,
-                                      enemy.heart_w - 1, enemy.heart_h)
-            else:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + (i-5) * enemy.heart_w,
-                                      enemy.heart_y - enemy.heart_h - 5, enemy.heart_w - 1, enemy.heart_h)
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y, enemy.heart_w-1, enemy.heart_h)
 
 
 # DAMAGED state functions
@@ -139,10 +232,8 @@ class DAMAGED:
             #enemy.image.clip_draw(int(enemy.frame) * int(322 / 4.2), 0, int(322 / 4.2), 90,
                                             #enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
-            if i < 5:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + i * enemy.heart_w, enemy.heart_y, enemy.heart_w - 1, enemy.heart_h)
-            else:
-                enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + (i-5) * enemy.heart_w, enemy.heart_y - enemy.heart_h - 5, enemy.heart_w - 1, enemy.heart_h)
+            enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x - i * enemy.heart_w, enemy.heart_y,
+                                  enemy.heart_w - 1, enemy.heart_h)
 
 
 # VICTORY state functions
@@ -170,8 +261,13 @@ class VICTORY:
 
 
 next_state_table = {
+    #IDLE: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: IDLE},
     IDLE: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE, SET_VICTORY: VICTORY},
     ATTACK: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: ATTACK, SET_VICTORY: VICTORY},
+    #SCISSOR: {SET_SCISSOR: IDLE, SET_ROCK: ROCK, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: SCISSOR},
+    #ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SPACE: ROCK},
+    #PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SPACE: PAPER},
+    #DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SPACE: IDLE}
     DAMAGED: {IDLE: IDLE, SET_ATTACK: IDLE, SET_DAMAGED: IDLE, SPACE: IDLE, SET_VICTORY: VICTORY},
     #VICTORY: {IDLE: VICTORY, SET_ATTACK: VICTORY, SET_DAMAGED: VICTORY, SPACE: VICTORY, SET_VICTORY: VICTORY}
 }
@@ -179,17 +275,25 @@ next_state_table = {
 class Enemy:
     image = None
     heart = None
-    heart_count = 10
+    heart_count = 5
     event_que = []
     def __init__(self):
         self.image_x, self.image_y, self.image_w, self.image_h = 60, 200, 100, 100
-        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 20, 140, 20, 20
+        self.heart_x, self.heart_y, self.heart_w, self.heart_h = 100, 140, 20, 20
         self.image = load_image('resource_enemy\enemy_idle.png')
         self.heart = load_image('resource_enemy\heart.png')
         self.cur_state = IDLE
         self.cur_state.enter(self, None)
 
     def fire_ball(self):
+        #block = Enemy_Block()
+        #if self.cur_state == SCISSOR:
+            #block.type = 'scissor'
+        #elif self.cur_state == ROCK:
+            #block.type = 'rock'
+        #elif self.cur_state == PAPER:
+            #block.type = 'paper'
+        #game_world.add_object(block, 1)
         pass
 
     def add_event(self, event):
