@@ -16,7 +16,7 @@ class Pause:
         self.x, self.y, self.w, self.h = 400, 300, 150, 150
 
     def draw(self):
-        self.image.clip_draw(0, 0, 900, 900, self.x, self.y, self.w, self.h)
+        self.image.clip_draw(0, 0, 225, 225, self.x, self.y, self.w, self.h)
 
     def update(self):
         pass
@@ -25,7 +25,7 @@ class Pause:
 class Restart:
     def __init__(self):
         self.image = load_image('resource_pause\Restart.png')
-        self.x, self.y, self.w, self.h = 370, 150, 100, 50
+        self.x, self.y, self.w, self.h = 400, 150, 100, 50
 
     def draw(self):
         self.image.clip_draw(0, 0, 230, 40, self.x, self.y, self.w, self.h)
@@ -37,7 +37,7 @@ class Restart:
 class Quit:
     def __init__(self):
         self.image = load_image('resource_pause\quit.png')
-        self.x, self.y, self.w, self.h = 530, 150, 100, 50
+        self.x, self.y, self.w, self.h = 600, 150, 100, 50
 
     def draw(self):
         self.image.clip_draw(0, 0, 230, 40, self.x, self.y, self.w, self.h)
