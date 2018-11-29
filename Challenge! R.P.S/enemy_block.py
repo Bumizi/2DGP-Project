@@ -18,11 +18,11 @@ class Enemy_Block:
         #if self.exist is True:
         self.type = random.randint(1, 3)
         if self.type == 1:
-            self.image = load_image('resource_enemy\enemy_rock.jpg')
+            self.image = load_image('resource_enemy\enemy_rock.png')
         elif self.type == 2:
-            self.image = load_image('resource_enemy\enemy_scissor.jpg')
+            self.image = load_image('resource_enemy\enemy_scissor.png')
         elif self.type == 3:
-            self.image = load_image('resource_enemy\enemy_paper.jpg')
+            self.image = load_image('resource_enemy\enemy_paper.png')
         self.velocity = 100
 
     def draw(self):
@@ -42,73 +42,78 @@ class Enemy_Block:
 
     def update(self):
         self.x += self.velocity * game_framework.frame_time * 3 / 2
-        if self.collide(MY_Block):
-            if level_select_state.game_level == 'easy':
-                if self.type == 1: #바위
-                    if MY_Block.type == 1: #바위
-                        pass
-                    elif MY_Block.type == 2: #가위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                elif self.type == 2: #가위
-                    if MY_Block.type == 1: #바위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        pass
-                    elif MY_Block.type == 3: #보
-                        Player.add_event(Player, player.SET_DAMAGED)
-                elif self.type == 3: #보
-                    if MY_Block.type == 1: #바위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        pass
-            elif level_select_state.game_level == 'normal':
-                if self.type == 1: #바위
-                    if MY_Block.type == 1: #바위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                elif self.type == 2: #가위
-                    if MY_Block.type == 1: #바위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Player.add_event(Player, player.SET_DAMAGED)
-                elif self.type == 3: #보
-                    if MY_Block.type == 1: #바위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Player.add_event(Player, player.SET_DAMAGED)
-            elif level_select_state.game_level == 'hard':
-                if self.type == 1: #바위
-                    if MY_Block.type == 1: #바위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Player.add_event(Player, player.SET_DAMAGED)
-                elif self.type == 2: #가위
-                    if MY_Block.type == 1: #바위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                elif self.type == 3: #보
-                    if MY_Block.type == 1: #바위
-                        Enemy.add_event(Enemy, enemy.SET_DAMAGED)
-                    elif MY_Block.type == 2: #가위
-                        Player.add_event(Player, player.SET_DAMAGED)
-                    elif MY_Block.type == 3: #보
-                        Player.add_event(Player, player.SET_DAMAGED)
-            game_world.remove_object(self)
-        if self.x < 25 or self.x > 800 - 25:
-            game_world.remove_object(self)
+        if MY_Block.type != 0:
+            if self.collide(MY_Block):
+                if level_select_state.game_level == 'easy':
+                    if self.type == 1: #바위
+                        if MY_Block.type == 1: #바위
+                            pass
+                        elif MY_Block.type == 2: #가위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    elif self.type == 2: #가위
+                        if MY_Block.type == 1: #바위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            pass
+                        elif MY_Block.type == 3: #보
+                            Player.add_event(Player, player.SET_DAMAGED)
+                    elif self.type == 3: #보
+                        if MY_Block.type == 1: #바위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            pass
+                elif level_select_state.game_level == 'normal':
+                    if self.type == 1: #바위
+                        if MY_Block.type == 1: #바위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    elif self.type == 2: #가위
+                        if MY_Block.type == 1: #바위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Player.add_event(Player, player.SET_DAMAGED)
+                    elif self.type == 3: #보
+                        if MY_Block.type == 1: #바위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Player.add_event(Player, player.SET_DAMAGED)
+                elif level_select_state.game_level == 'hard':
+                    if self.type == 1: #바위
+                        if MY_Block.type == 1: #바위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Player.add_event(Player, player.SET_DAMAGED)
+                    elif self.type == 2: #가위
+                        if MY_Block.type == 1: #바위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                    elif self.type == 3: #보
+                        if MY_Block.type == 1: #바위
+                            Enemy.add_event(Enemy, enemy.SET_DAMAGED)
+                        elif MY_Block.type == 2: #가위
+                            Player.add_event(Player, player.SET_DAMAGED)
+                        elif MY_Block.type == 3: #보
+                            Player.add_event(Player, player.SET_DAMAGED)
+                game_world.remove_object(self)
+        else:
+            if self.collide(Player):
+                Player.add_event(Player, player.SET_DAMAGED)
+                game_world.remove_object(self)
+        #if self.x < 25 or self.x > 800 - 25:
+            #game_world.remove_object(self)

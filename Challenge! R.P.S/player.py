@@ -275,11 +275,8 @@ class Player:
     def add_event(self, event):
         self.event_que.insert(0, event)
 
-    #def change_state(self,  state):
-        #self.exit_state[self.cur_state](self)
-        #self.enter_state[state](self)
-        #self.cur_state = state
-        #pass
+    def get_bb(self):
+        return 730 + 30, 200 - 30, 730 + 40, 200 + 30
 
     #enter_state = {IDLE: enter_IDLE, ROCK: enter_ROCK, SCISSOR: enter_SCISSOR, PAPER: enter_PAPER}
     #exit_state = {IDLE: exit_IDLE, ROCK: exit_ROCK, SCISSOR: exit_SCISSOR, PAPER: exit_PAPER}

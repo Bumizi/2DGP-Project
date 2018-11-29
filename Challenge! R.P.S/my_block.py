@@ -18,6 +18,7 @@ key_event_table = {
 class IDLE:
     @staticmethod
     def enter(block, event):
+        MY_Block.type = 0
         pass
 
     @staticmethod
