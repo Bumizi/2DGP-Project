@@ -195,6 +195,7 @@ class DAMAGED:
         player.frame = 0
         player.heart_count -= 1
         player.image = load_image('resource_player\player_damaged.png')
+        player.bgm.play()
 
     @staticmethod
     def exit(player, event):
@@ -268,6 +269,8 @@ class Player:
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 770, 140, 20, 20
         self.image = load_image('resource_player\player_idle.png')
         self.heart = load_image('resource_player\heart.png')
+        self.bgm = load_music('sound\PlayerDamaged.mp3')
+        self.bgm.set_volume(64)
         self.cur_state = IDLE
         #self.enter_state[IDLE](self)
         self.cur_state.enter(self, None)

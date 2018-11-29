@@ -109,6 +109,7 @@ class DAMAGED:
         enemy.frame = 0
         enemy.heart_count -= 1
         enemy.image = load_image('resource_enemy\enemy_damaged.png')
+        enemy.bgm.play()
 
     @staticmethod
     def exit(enemy, event):
@@ -186,6 +187,8 @@ class Enemy:
         self.heart_x, self.heart_y, self.heart_w, self.heart_h = 20, 140, 20, 20
         self.image = load_image('resource_enemy\enemy_idle.png')
         self.heart = load_image('resource_enemy\heart.png')
+        self.bgm = load_music('sound\EnemyDamaged.mp3')
+        self.bgm.set_volume(44)
         self.cur_state = IDLE
         self.cur_state.enter(self, None)
 
