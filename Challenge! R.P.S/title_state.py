@@ -11,8 +11,16 @@ exit_image = None
 
 
 class MainScreen:
+    bgm = None
     def __init__(self):
+        global bgm
         self.image = load_image('resource_title\RPS.png')
+        bgm = load_music('sound\MenuBGM.mp3')
+        bgm.set_volume(44)
+        bgm.repeat_play()
+        #self.bgm = load_music('sound\MenuBGM.mp3')
+        #self.bgm.set_volume(44)
+        #self.bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 512, 512, 800//2, 500//2, 800, 500)
@@ -57,7 +65,8 @@ def enter():
 
 
 def exit():
-    global main_image, start_image, exit_image
+    global main_image, start_image, exit_image, bgm
+    bgm.stop()
     del main_image
     del start_image
     del exit_image

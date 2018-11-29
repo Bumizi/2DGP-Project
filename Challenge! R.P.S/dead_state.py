@@ -12,9 +12,14 @@ image_restart = None
 image_quit = None
 
 class GameOver:
+    bgm = None
     def __init__(self):
+        global bgm
         self.image = load_image('resource_dead\game_over.jpg')
         self.x, self.y, self.w, self.h = 400, 300, 200, 200
+        bgm = load_music('sound\Dead.mp3')
+        bgm.set_volume(44)
+        bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 300, 300, self.x, self.y, self.w, self.h)
@@ -68,7 +73,8 @@ def enter():
 
 
 def exit():
-    global image_game_over, image_restart, image_quit
+    global image_game_over, image_restart, image_quit, bgm
+    bgm.stop()
     game_world.clear()
     pass
 

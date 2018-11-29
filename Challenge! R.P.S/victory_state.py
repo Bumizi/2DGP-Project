@@ -11,9 +11,14 @@ image_restart = None
 image_quit = None
 
 class Victory:
+    bgm = None
     def __init__(self):
+        global bgm
         self.image = load_image('resource_victory\win.png')
         self.x, self.y, self.w, self.h = 400, 300, 300, 200
+        bgm = load_music('sound\Victory.mp3')
+        bgm.set_volume(44)
+        bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 300, 100, self.x, self.y, self.w, self.h)
@@ -67,7 +72,8 @@ def enter():
 
 
 def exit():
-    global image_game_over, image_restart, image_quit
+    global image_game_over, image_restart, image_quit, bgm
+    bgm.stop()
     game_world.clear()
     pass
 
