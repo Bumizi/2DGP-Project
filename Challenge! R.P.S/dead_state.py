@@ -94,9 +94,6 @@ def handle_events():
                 elif collision(image_quit.x, image_quit.y, image_quit.w, image_quit.h, event.x, -(event.y - 500)):
                     game_framework.pop_state()
                     game_framework.change_state(title_state)
-            #elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-                #game_framework.pop_state()
-                #game_framework.change_state(main_state)
     pass
 
 

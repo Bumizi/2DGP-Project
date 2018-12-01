@@ -28,7 +28,6 @@ font = None
 
 attack_time = 0
 
-import time
 frame_time = 0.0
 current_time = 0.0
 
@@ -56,12 +55,11 @@ def enter():
     game_world.add_object(select, 1)
     game_world.add_object(character_player, 1)
     game_world.add_object(character_enemy, 1)
-    #game_world.add_object(enemy_block, 1)
     pass
 
 
 def exit():
-    global background, character_enemy, character_player, select, player_block#, enemy_block
+    global background, character_enemy, character_player, select, player_block
     game_world.clear()
     pass
 
@@ -87,10 +85,6 @@ def handle_events():
             character_enemy.handle_event(event)
             select.handle_event(event)
             player_block.handle_event(event)
-            if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-                block = Enemy_Block()
-                game_world.add_object(block, 1)
-            #enemy_block.handle_event(event)
 
 
 def update():
@@ -99,19 +93,8 @@ def update():
     if attack_time > 400:
         attack_time = 0
         character_enemy.add_event(SET_ATTACK)
-        #if len(character_enemy.event_que) > 1:
-            #character_enemy.event_que.pop()
-            #character_enemy.add_event(SET_ATTACK)
         block = Enemy_Block()
         game_world.add_object(block, 1)
-    #if character_player.heart_count <= 0: #플레이어가 지면
-        #character_player.add_event(SET_DAMAGED)
-        #character_enemy.add_event(SET_VICTORY)
-        # character_player.add_event(SET_VICTORY)
-    #if character_enemy.heart_count <= 0: #플레이어가 이기면
-        #character_enemy.add_event(SET_DAMAGED)
-        #character_player.add_event(SET_VICTORY)
-        # character_enemy.add_event(SET_VICTORY)
 
     for game_object in game_world.all_objects():
         game_object.update()

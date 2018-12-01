@@ -18,9 +18,6 @@ class MainScreen:
         bgm = load_music('sound\MenuBGM.mp3')
         bgm.set_volume(44)
         bgm.repeat_play()
-        #self.bgm = load_music('sound\MenuBGM.mp3')
-        #self.bgm.set_volume(44)
-        #self.bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 512, 512, 800//2, 500//2, 800, 500)

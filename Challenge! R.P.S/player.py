@@ -2,10 +2,7 @@ from pico2d import *
 import game_framework
 import dead_state
 import victory_state
-from block import Block
-
-# Boy State
-#IDLE, SCISSOR, ROCK, PAPER = range(4)
+import level_select_state
 
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 20.0 #km/hour
@@ -37,7 +34,6 @@ class IDLE:
     @staticmethod
     def enter(player, event):
         player.frame = 0
-        #Player.timer = 100
 
     @staticmethod
     def exit(player, event):
@@ -46,7 +42,6 @@ class IDLE:
     @staticmethod
     def do(player):
         player.image = load_image('resource_player\player_idle.png')
-        #player.frame = (player.frame + 1) % 4
         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
 
     @staticmethod
@@ -66,39 +61,27 @@ class ROCK:
         player.frame = 0
         enter_timer = get_time()
         player.image = load_image('resource_player\player_attack1.png')
-        #player.hand = load_image('my_rock.png')
 
     @staticmethod
     def exit(player, event):
-        #if event == SPACE:
-            #boy.fire_ball()
         pass
 
     @staticmethod
     def do(player):
-        global enter_timer
-        until_timer = get_time()
-        #print("Time: %f" % player.timer)
-        #if until_timer - enter_timer < 1:
-            #player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        #player.timer -= 1
-        #player.x += player.velocity
 
     @staticmethod
     def draw(player):
         if player.image == 'resource_player\player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
@@ -110,38 +93,29 @@ class SCISSOR:
         global enter_timer
         player.frame = 0
         enter_timer = get_time()
-        #player.hand = load_image('my_scissor.png')
         player.image = load_image('resource_player\player_attack1.png')
 
     @staticmethod
     def exit(player, event):
-        #if event == SPACE:
-            #boy.fire_ball()
         pass
 
     @staticmethod
     def do(player):
-        global enter_timer
-        until_timer = get_time()
-        # print("Time: %f" % player.timer)
         if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        #boy.x += boy.velocity * 5
 
     @staticmethod
     def draw(player):
         if player.image == 'resource_player\player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
@@ -151,7 +125,6 @@ class PAPER:
     @staticmethod
     def enter(player, event):
         player.frame = 0
-        #player.hand = load_image('my_paper.png')
         player.image = load_image('resource_player\player_attack1.png')
 
     @staticmethod
@@ -160,27 +133,21 @@ class PAPER:
 
     @staticmethod
     def do(player):
-        global enter_timer
-        until_timer = get_time()
-        # print("Time: %f" % player.timer)
         if player.frame < 1.5:
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         else:
             if player.image != 'resource_player\player_idle.png':
                 player.image = load_image('resource_player\player_idle.png')
             player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        # boy.x += boy.velocity * 5
 
     @staticmethod
     def draw(player):
         if player.image == 'resource_player\player_attack1.png':
             player.image.clip_composite_draw(int(player.frame) * int(165 / 3), 0, int(165 / 3), 100, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         else:
             player.image.clip_composite_draw(int(player.frame) * int(202 / 4), 0, int(202 / 4), 93, 0, 'h',
                                              player.image_x, player.image_y, player.image_w, player.image_h)
-            #player.hand.clip_draw(0, 0, 120, 120, player.hand_x, player.hand_y, player.hand_w, player.hand_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y, player.heart_w-1, player.heart_h)
 
@@ -217,11 +184,7 @@ class DAMAGED:
 
     @staticmethod
     def draw(player):
-        #if player.heart_count > 0:
         player.image.clip_composite_draw(int(player.frame) * int(208 / 4), 0, int(208 / 4), 100, 0, 'h', player.image_x, player.image_y, player.image_w, player.image_h)
-        #else:
-            #player.image.clip_composite_draw(int(player.frame) * int(365 / 6), 0, int(365 / 6), 100, 0, 'h',
-                                             #player.image_x, player.image_y, player.image_w, player.image_h)
         for i in range(player.heart_count):
             player.heart.clip_draw(0, 0, 620, 620, player.heart_x - i * player.heart_w, player.heart_y,
                                        player.heart_w - 1, player.heart_h)
@@ -256,7 +219,6 @@ next_state_table = {
     ROCK: {SET_SCISSOR: SCISSOR, SET_ROCK: IDLE, SET_PAPER: PAPER, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
     PAPER: {SET_SCISSOR: SCISSOR, SET_ROCK: ROCK, SET_PAPER: IDLE, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY},
     DAMAGED: {IDLE: IDLE, SET_SCISSOR: DAMAGED, SET_ROCK: DAMAGED, SET_PAPER: DAMAGED, SET_DAMAGED: DAMAGED, SET_VICTORY: VICTORY },
-    #VICTORY: {IDLE: VICTORY, SET_SCISSOR: VICTORY, SET_ROCK: VICTORY, SET_PAPER: VICTORY, SET_DAMAGED: VICTORY, SET_VICTORY: VICTORY}
 }
 
 class Player:
@@ -271,8 +233,8 @@ class Player:
         self.heart = load_image('resource_player\heart.png')
         self.bgm = load_music('sound\PlayerDamaged.mp3')
         self.bgm.set_volume(64)
+        self.font = load_font('ENCR10B.TTF', 16)
         self.cur_state = IDLE
-        #self.enter_state[IDLE](self)
         self.cur_state.enter(self, None)
 
     def add_event(self, event):
@@ -281,25 +243,24 @@ class Player:
     def get_bb(self):
         return 730 + 30, 200 - 30, 730 + 40, 200 + 30
 
-    #enter_state = {IDLE: enter_IDLE, ROCK: enter_ROCK, SCISSOR: enter_SCISSOR, PAPER: enter_PAPER}
-    #exit_state = {IDLE: exit_IDLE, ROCK: exit_ROCK, SCISSOR: exit_SCISSOR, PAPER: exit_PAPER}
-    #do_state = {IDLE: do_IDLE, ROCK: do_ROCK, SCISSOR: do_SCISSOR, PAPER: do_PAPER}
-    #draw_state = {IDLE: draw_IDLE, ROCK: draw_ROCK, SCISSOR: draw_SCISSOR, PAPER: draw_PAPER}
 
     def update(self):
-        #self.do_state[self.cur_state](self)
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
-            #self.change_state(next_state_table[self.cur_state][event])
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
         pass
 
     def draw(self):
-        #self.draw_state[self.cur_state](self)
         self.cur_state.draw(self)
+        if level_select_state.game_level == 'easy':
+            self.font.draw(380, 450, 'Easy', (0, 0, 0))
+        elif level_select_state.game_level == 'normal':
+            self.font.draw(380, 450, 'Normal', (0, 0, 0))
+        elif level_select_state.game_level == 'hard':
+            self.font.draw(380, 450, 'Hard', (0, 0, 0))
         pass
 
     def handle_event(self, event):

@@ -4,8 +4,6 @@ import game_world
 import victory_state
 import dead_state
 
-#from enemy_block import Enemy_Block
-
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 20.0 #km/hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
@@ -19,14 +17,9 @@ FRAMES_PER_ACTION = 4
 
 
 # Enemy Event
-#IDLE, SET_SCISSOR, SET_ROCK, SET_PAPER, SET_DAMAGED, SPACE = range(6)
 IDLE, SPACE, SET_DAMAGED, SET_ATTACK, SET_VICTORY = range(5)
 
 key_event_table = {
-    #(SDL_KEYDOWN, SDLK_1): SET_SCISSOR,
-    #(SDL_KEYDOWN, SDLK_2): SET_ROCK,
-    #(SDL_KEYDOWN, SDLK_3): SET_PAPER,
-    #(SDL_KEYDOWN, SDLK_4): SET_DAMAGED,
     (SDL_KEYDOWN, SDLK_SPACE): SPACE,
     (SDL_KEYDOWN, SDLK_SPACE): SET_ATTACK
 }
@@ -134,11 +127,7 @@ class DAMAGED:
 
     @staticmethod
     def draw(enemy):
-        #if enemy.heart_count > 0:
         enemy.image.clip_draw(int(enemy.frame) * int(144 / 2), 0, int(144 / 2), 95, enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
-        #else:
-            #enemy.image.clip_draw(int(enemy.frame) * int(322 / 4.2), 0, int(322 / 4.2), 90,
-                                            #enemy.image_x, enemy.image_y, enemy.image_w, enemy.image_h)
         for i in range(enemy.heart_count):
             if i < 5:
                 enemy.heart.clip_draw(0, 0, 620, 620, enemy.heart_x + i * enemy.heart_w, enemy.heart_y, enemy.heart_w - 1, enemy.heart_h)
@@ -174,7 +163,6 @@ next_state_table = {
     IDLE: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: IDLE, SET_VICTORY: VICTORY},
     ATTACK: {SET_ATTACK: ATTACK, SET_DAMAGED: DAMAGED, SPACE: ATTACK, SET_VICTORY: VICTORY},
     DAMAGED: {IDLE: IDLE, SET_ATTACK: IDLE, SET_DAMAGED: IDLE, SPACE: IDLE, SET_VICTORY: VICTORY},
-    #VICTORY: {IDLE: VICTORY, SET_ATTACK: VICTORY, SET_DAMAGED: VICTORY, SPACE: VICTORY, SET_VICTORY: VICTORY}
 }
 
 class Enemy:

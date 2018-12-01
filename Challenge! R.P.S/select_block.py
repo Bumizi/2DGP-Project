@@ -30,7 +30,6 @@ class IDLE:
 
     @staticmethod
     def do(block):
-        #player.image = load_image('player_idle.png')
         pass
 
     @staticmethod

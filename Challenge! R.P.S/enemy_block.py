@@ -14,8 +14,6 @@ class Enemy_Block:
         self.image = None
         self.type = None
         self.x, self.y, self.w, self.h = 150, 220, 80, 80
-        #self.exist = False
-        #if self.exist is True:
         self.type = random.randint(1, 3)
         if self.type == 1:
             self.image = load_image('resource_enemy\enemy_rock.png')
@@ -115,5 +113,3 @@ class Enemy_Block:
             if self.collide(Player):
                 Player.add_event(Player, player.SET_DAMAGED)
                 game_world.remove_object(self)
-        #if self.x < 25 or self.x > 800 - 25:
-            #game_world.remove_object(self)

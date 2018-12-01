@@ -73,10 +73,6 @@ def enter():
     image_restart = Restart()
     image_quit = Quit()
     image_continue = Continue()
-    #game_world.add_object(image_pause, 0)
-    #game_world.add_object(image_restart, 1)
-    #game_world.add_object(image_quit, 1)
-    #game_world.add_object(image_continue, 1)
     pass
 
 
@@ -86,11 +82,6 @@ def exit():
     del image_restart
     del image_quit
     del image_continue
-    #game_world.remove_object(image_pause)
-    #game_world.remove_object(image_restart)
-    #game_world.remove_object(image_quit)
-    #game_world.remove_object(image_continue)
-    #game_world.clear()
     pass
 
 

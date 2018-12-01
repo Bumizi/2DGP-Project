@@ -32,9 +32,6 @@ class IDLE:
     @staticmethod
     def draw(block):
         pass
-        #player.scissor.clip_draw(0, 0, 130, 150, player.scissor_x, player.scissor_y, player.scissor_w, player.scissor_h)
-        #player.rock.clip_draw(0, 0, 130, 150, player.rock_x, player.rock_y, player.rock_w, player.rock_h)
-        #player.paper.clip_draw(0, 0, 160, 150, player.paper_x, player.paper_y, player.paper_w, player.paper_h)
 
 
 # ROCK state functions
@@ -112,13 +109,11 @@ class MY_Block:
 
     def __init__(self):
         self.x, self.y, self.w, self.h = 640, 220, 80, 80
-        #self.rock, scissor, paper = load_image('resource_player\my_rock.png'), load_image('resource_player\my_scissor.png'), load_image('resource_player\my_paper.png')
         self.event_que = []
         self.cur_state = IDLE
         self.cur_state.enter(self, None)
 
     def get_bb(self):
-        #return self.x - 60, self.y - 60, self.x + 60, self.y + 60
         return 640 + 40 - 30, 220 + 40 - 30, 640 + 40 + 30, 220 + 40 + 30
 
     def draw(self):
