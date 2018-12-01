@@ -39,7 +39,7 @@ class Enemy_Block:
         return True
 
     def update(self):
-        self.x += self.velocity * game_framework.frame_time * 3 / 2
+        self.x += self.velocity * game_framework.frame_time * 3
         if MY_Block.type != 0:
             if self.collide(MY_Block):
                 if level_select_state.game_level == 'easy':
