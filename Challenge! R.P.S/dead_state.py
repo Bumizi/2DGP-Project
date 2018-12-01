@@ -19,7 +19,7 @@ class GameOver:
         self.x, self.y, self.w, self.h = 400, 300, 200, 200
         bgm = load_music('sound\Dead.mp3')
         bgm.set_volume(44)
-        bgm.repeat_play()
+        bgm.play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 300, 300, self.x, self.y, self.w, self.h)
